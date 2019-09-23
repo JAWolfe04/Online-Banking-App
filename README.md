@@ -5,3 +5,5 @@
 [Ground Rules and Work Agreement](https://docs.google.com/document/d/1cfMtX7VBfya8j9n-NJiM30QzgLqE8wwRQGGHLZ1i5cs/edit?usp=sharing)
 
 [Project Charter](https://docs.google.com/document/d/1GtEqOB5XNyh_RKn_gBCjnqq-yKZdxI4O2_L9o3AYf9w/edit?usp=sharing)
+
+[Requirements Document](https://drive.google.com/file/d/1yZXbY7hK4JPU1Sv_wsdsOhc1OIvK-RKF/view?usp=sharing)
