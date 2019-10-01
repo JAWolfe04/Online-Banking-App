@@ -1,0 +1,28 @@
+﻿@model IEnumerable<asp_core_mvc.Models.Alerts>
+
+@{
+    ViewBag.Title = "Alerts";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<p>Alerts</p>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Reason for Alert</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Alerts v in ViewBag.AlertsData)
+        {
+            <tr>
+                <td>@v.TransDate</td>
+                <td>@v.AlertReason</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

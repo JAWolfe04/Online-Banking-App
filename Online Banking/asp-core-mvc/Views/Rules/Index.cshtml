@@ -1,0 +1,29 @@
+﻿@model IEnumerable<asp_core_mvc.Models.Rules>
+
+@{
+    ViewBag.Title = "Rules";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<p>Rules</p>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>RuleId</th>
+            <th>RuleDesc</th>
+            <th>Date Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Rules v in ViewBag.RulesData)
+        {
+        <tr>
+            <td>@v.RuleId</td>
+            <td>@v.RuleDesc</td>
+            <td>@v.DateCreated</td>
+        </tr>
+        }
+    </tbody>
+</table>

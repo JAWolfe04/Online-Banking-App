@@ -1,0 +1,36 @@
+﻿@model IEnumerable<asp_core_mvc.Models.Transactions>
+
+@{
+    ViewBag.Title = "Transactions";
+}
+
+<h1>@ViewBag.Title</h1> 
+
+<p>Transactions</p> 
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>TransId</th>
+            <th>TransDate</th>
+            <th>TransDesc</th>
+            <th>Location</th>
+            <th>Amount</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Transactions v in ViewBag.TransactionsData)
+        {
+            <tr>
+                <td>@v.TransId</td>
+                <td>@v.TransDate</td>
+                <td>@v.TransDesc</td>
+                <td>@v.Location</td>
+                <td>@v.Amount</td>
+                <td>@v.Balance</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

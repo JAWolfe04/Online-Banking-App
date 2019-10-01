@@ -1,0 +1,68 @@
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.deps.json
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.runtimeconfig.json
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.runtimeconfig.dev.json
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.dll
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.pdb
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.Views.dll
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.Views.pdb
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.csprojAssemblyReference.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.csproj.CoreCompileInputs.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorAssemblyInfo.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorAssemblyInfo.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.AssemblyInfoInputs.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.AssemblyInfo.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.TagHelpers.input.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.TagHelpers.output.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorCoreGenerate.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorTargetAssemblyInfo.cache
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorTargetAssemblyInfo.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.Views.pdb
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.dll
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.pdb
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.csproj.CopyComplete
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Home\About.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Alerts\Index.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Reports\Index.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Rules\Index.g.cshtml.cs
+C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Transactions\Index.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.deps.json
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.runtimeconfig.json
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.runtimeconfig.dev.json
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.dll
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.pdb
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.Views.dll
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\bin\Debug\netcoreapp2.2\asp-core-mvc.Views.pdb
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.csprojAssemblyReference.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.csproj.CoreCompileInputs.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorAssemblyInfo.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorAssemblyInfo.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.AssemblyInfoInputs.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.AssemblyInfo.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.TagHelpers.input.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.TagHelpers.output.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorCoreGenerate.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Alerts\Index.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Home\About.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Reports\Index.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Rules\Index.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\Transactions\Index.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorTargetAssemblyInfo.cache
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.RazorTargetAssemblyInfo.cs
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.Views.pdb
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.dll
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.pdb
+C:\Users\david\Documents\GitHub\semester-group-assignment-group-6\Online Banking\asp-core-mvc\obj\Debug\netcoreapp2.2\asp-core-mvc.csproj.CopyComplete
