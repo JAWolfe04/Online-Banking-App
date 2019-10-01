@@ -1,0 +1,34 @@
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\appsettings.Development.json
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\appsettings.json
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.exe
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.deps.json
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.runtimeconfig.json
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.runtimeconfig.dev.json
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.dll
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.pdb
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.Views.dll
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\bin\Debug\netcoreapp3.0\Commerce Online Banking.Views.pdb
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.csprojAssemblyReference.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\staticwebassets\Commerce Online Banking.StaticWebAssets.Manifest.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\staticwebassets\Commerce Online Banking.StaticWebAssets.xml
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.RazorAssemblyInfo.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.RazorAssemblyInfo.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.AssemblyInfoInputs.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.AssemblyInfo.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.TagHelpers.input.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.TagHelpers.output.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.RazorCoreGenerate.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Razor\Views\_ViewStart.cshtml.g.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.RazorTargetAssemblyInfo.cache
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.RazorTargetAssemblyInfo.cs
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.Views.pdb
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.dll
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.pdb
+C:\Users\Jonathan\Desktop\UMKC\CS 451\Project\Commerce Online Banking\obj\Debug\netcoreapp3.0\Commerce Online Banking.csproj.CopyComplete
