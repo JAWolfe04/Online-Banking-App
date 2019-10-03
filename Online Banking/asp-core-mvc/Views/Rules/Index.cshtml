@@ -17,12 +17,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Rules v in ViewBag.RulesData)
+        @foreach (Rules rule in Model)
         {
         <tr>
-            <td>@v.RuleId</td>
-            <td>@v.RuleDesc</td>
-            <td>@v.DateCreated</td>
+            <td>@rule.RuleId</td>
+            <td>@rule.RuleDesc</td>
+            <td>@rule.DateCreated</td>
         </tr>
         }
     </tbody>

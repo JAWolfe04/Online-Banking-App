@@ -15,29 +15,8 @@ namespace asp_core_mvc.Controllers
     {
         public IActionResult Index()
         {
-            List<Rules> rules = new List<Rules>();
-
-            string connStr = "server=localhost;user=root;database=cs451_project;port=3306;password=123456";
-            MySqlConnection conn = new MySqlConnection(connStr);
-            conn.Open();
-            string sql = "SELECT * FROM Rules";
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                Rules alert = new Rules(
-                    rdr.GetInt32(0), // rid
-                    rdr.GetString(1), // rdesc
-                    rdr.GetString(2) // dcr
-                );
-                rules.Add(alert);
-            }
-            rdr.Close();
-            conn.Close();
-
-            ViewBag.RulesData = rules;
-
-            return View();
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            return View(databaseHandler.getRules());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

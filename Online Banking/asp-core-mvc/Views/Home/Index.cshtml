@@ -1,4 +1,5 @@
-﻿@{
+﻿@model asp_core_mvc.ViewModels.HomeModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -26,12 +27,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Alerts v in ViewBag.AlertsData)
+                @foreach (Alerts alert in Model.Alerts)
                 {
-                    <tr>
-                        <td>@v.TransDate</td>
-                        <td>@v.AlertReason</td>
-                    </tr>
+                <tr>
+                    <td>@alert.TransDate</td>
+                    <td>@alert.AlertReason</td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -51,14 +52,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Transactions v in ViewBag.TransactionsData)
+                @foreach (Transactions transaction in Model.Transactions)
                 {
-                    <tr>
-                        <td>@v.TransDate</td>
-                        <td>@v.TransDesc</td>
-                        <td>@v.Amount</td>
-                        <td>@v.Balance</td>
-                    </tr>
+                <tr>
+                    <td>@transaction.TransDate</td>
+                    <td>@transaction.TransDesc</td>
+                    <td>@transaction.Amount</td>
+                    <td>@transaction.Balance</td>
+                </tr>
                 }
             </tbody>
         </table>

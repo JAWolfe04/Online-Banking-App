@@ -11,25 +11,25 @@
 <table class="table table-condensed table-hover">
     <thead>
         <tr>
-            <th>TransId</th>
-            <th>TransDate</th>
-            <th>TransDesc</th>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Desc</th>
             <th>Location</th>
             <th>Amount</th>
             <th>Balance</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Transactions v in ViewBag.TransactionsData)
+        @foreach (Transactions transaction in Model)
         {
-            <tr>
-                <td>@v.TransId</td>
-                <td>@v.TransDate</td>
-                <td>@v.TransDesc</td>
-                <td>@v.Location</td>
-                <td>@v.Amount</td>
-                <td>@v.Balance</td>
-            </tr>
+        <tr>
+            <td>@transaction.TransId</td>
+            <td>@transaction.TransDate</td>
+            <td>@transaction.TransDesc</td>
+            <td>@transaction.Location</td>
+            <td>@transaction.Amount</td>
+            <td>@transaction.Balance</td>
+        </tr>
         }
     </tbody>
 </table>
