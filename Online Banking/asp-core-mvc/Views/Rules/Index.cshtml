@@ -1,4 +1,4 @@
-﻿@model IEnumerable<asp_core_mvc.Models.Rules>
+﻿@model asp_core_mvc.Models.Rules
 
 @{
     ViewBag.Title = "Rules";
@@ -6,24 +6,105 @@
 
 <h1>@ViewBag.Title</h1>
 
-<p>Rules</p>
-
-<table class="table table-condensed table-hover">
-    <thead>
-        <tr>
-            <th>RuleId</th>
-            <th>RuleDesc</th>
-            <th>Date Created</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Rules v in ViewBag.RulesData)
-        {
-        <tr>
-            <td>@v.RuleId</td>
-            <td>@v.RuleDesc</td>
-            <td>@v.DateCreated</td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div class="container">
+    <form asp-action="Edit">
+        <div class="row">
+            <div class="col-sm-10">
+                <p>Send Alert if:</p>
+            </div>
+            <div class="col-sm-2 text-center">
+                <p>Enable</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <p>Out of State Transaction</p>
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="OutStateTrans" class="sr-only"> </label>
+                <input asp-for="OutStateTrans">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10 form-inline">
+                <div class="form-group mr-2">
+                    <label asp-for="startTrans" class="mr-1"></label>
+                    <input asp-for="startTrans">
+                </div>
+                <div class="form-group">
+                    <label asp-for="endTrans" class="mr-1"></label>
+                    <input asp-for="endTrans">
+                </div>
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="rangeTrans" class="sr-only"></label>
+                <input asp-for="rangeTrans">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10">
+                <label asp-for="catTxt"></label>
+                <input asp-for="catTxt">
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="catTrans" class="sr-only"></label>
+                <input asp-for="catTrans">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10">
+                <label asp-for="greatTransAmt"></label>
+                <input asp-for="greatTransAmt">
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="greatTrans" class="sr-only"></label>
+                <input asp-for="greatTrans">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10">
+                <label asp-for="greatDepoAmt"></label>
+                <input asp-for="greatDepoAmt">
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="greatDepo" class="sr-only"></label>
+                <input asp-for="greatDepo">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10">
+                <label asp-for="greatWithdrawAmt"></label>
+                <input asp-for="greatWithdrawAmt">
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="greatWithdraw" class="sr-only"></label>
+                <input asp-for="greatWithdraw">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10">
+                <label asp-for="greatBalAmt"></label>
+                <input asp-for="greatBalAmt">
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="greatBal" class="sr-only"></label>
+                <input asp-for="greatBal">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10">
+                <label asp-for="lessBalAmt"></label>
+                <input asp-for="lessBalAmt">
+            </div>
+            <div class="col-sm-2 text-center">
+                <label asp-for="lessBal" class="sr-only"></label>
+                <input asp-for="lessBal">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <input type="submit" value="Apply" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>

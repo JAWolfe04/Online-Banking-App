@@ -13,31 +13,28 @@ namespace asp_core_mvc.Controllers
 {
     public class RulesController : Controller
     {
+        //Temporary customerID for testing until a login is made
+        Int32 tempCustomerID = 5683648;
+
         public IActionResult Index()
         {
-            List<Rules> rules = new List<Rules>();
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            return View(databaseHandler.getRules(tempCustomerID));
+        }
 
-            string connStr = "server=localhost;user=root;database=cs451_project;port=3306;password=123456";
-            MySqlConnection conn = new MySqlConnection(connStr);
-            conn.Open();
-            string sql = "SELECT * FROM Rules";
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                Rules alert = new Rules(
-                    rdr.GetInt32(0), // rid
-                    rdr.GetString(1), // rdesc
-                    rdr.GetString(2) // dcr
-                );
-                rules.Add(alert);
-            }
-            rdr.Close();
-            conn.Close();
+        [HttpPost]
+        public IActionResult Edit(Rules ruleModel)
+        {
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            if (ruleModel.OutStateTrans == false && ruleModel.rangeTrans == false &&
+                ruleModel.catTrans == false && ruleModel.greatTrans == false &&
+                ruleModel.greatDepo == false && ruleModel.greatWithdraw == false &&
+                ruleModel.greatBal == false && ruleModel.lessBal == false)
+                databaseHandler.deleteRules(tempCustomerID);
+            else
+                databaseHandler.setRules(tempCustomerID, ruleModel);
 
-            ViewBag.RulesData = rules;
-
-            return View();
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
