@@ -94,22 +94,64 @@ namespace asp_core_mvc.Models
             return prevReports;
         }
 
-        public List<Rules> getRules()
+        public Rules getRules(Int32 customerID)
         {
-            List<Rules> rules = new List<Rules>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Rules", conn);
+            Rules rules = new Rules();
+            string sqlStatement = "SELECT * FROM Rules WHERE CustomerId =" + customerID;
+            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            while(rdr.Read())
             {
-                Rules rule = new Rules();
-                rule.RuleId = rdr.GetInt32(0);
-                rule.RuleDesc = rdr.GetString(1);
-                rule.DateCreated = rdr.GetString(2);
-                rules.Add(rule);
+                rules.OutStateTrans = Convert.ToBoolean(rdr["OutStateTrans"]);
+                rules.rangeTrans = Convert.ToBoolean(rdr["RangeTrans"]);
+                rules.startTrans = rdr["StartTrans"].ToString();
+                rules.endTrans = rdr["EndTrans"].ToString();
+                rules.catTrans = Convert.ToBoolean(rdr["CatTrans"]);
+                rules.catTxt = rdr["Catagory"].ToString();
+                rules.greatTrans = Convert.ToBoolean(rdr["GreatTrans"]);
+                rules.greatTransAmt = Convert.ToInt32(rdr["GreatTransAmt"]);
+                rules.greatDepo = Convert.ToBoolean(rdr["GreatDepo"]);
+                rules.greatDepoAmt = Convert.ToDouble(rdr["GreatDepoAmt"]);
+                rules.greatWithdraw = Convert.ToBoolean(rdr["GreatWithdraw"]);
+                rules.greatWithdrawAmt = Convert.ToDouble(rdr["GreatWithdrawAmt"]);
+                rules.greatBal = Convert.ToBoolean(rdr["GreatBal"]);
+                rules.greatBalAmt = Convert.ToDouble(rdr["GreatBalAmt"]);
+                rules.lessBal = Convert.ToBoolean(rdr["LessBal"]);
+                rules.lessBalAmt = Convert.ToDouble(rdr["LessBalAmt"]);
             }
             conn.Close();
             return rules;
+        }
+
+        public void setRules(Int32 customerID, Rules rules)
+        {
+            string sqlStatement = "REPLACE INTO Rules(CustomerId, OutStateTrans," +
+                "RangeTrans, StartTrans, EndTrans, CatTrans, Catagory, GreatTrans, " +
+                "GreatTransAmt, GreatDepo, GreatDepoAmt, GreatWithdraw, GreatWithdrawAmt," +
+                "GreatBal, GreatBalAmt, LessBal, LessBalAmt) VALUES (" +
+                customerID + "," + rules.OutStateTrans + "," +
+                rules.rangeTrans + ",'" + rules.startTrans + "','" +
+                rules.endTrans + "'," + rules.catTrans + ",'" +
+                rules.catTxt + "'," + rules.greatTrans + "," +
+                rules.greatTransAmt + "," + rules.greatDepo + "," +
+                rules.greatDepoAmt + "," + rules.greatWithdraw + "," +
+                rules.greatWithdrawAmt + "," + rules.greatBal + "," +
+                rules.greatBalAmt + "," + rules.lessBal + "," +
+                rules.lessBalAmt + ")";
+            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public void deleteRules(Int32 customerID)
+        {
+            string sqlStatement = "DELETE FROM Rules WHERE CustomerID=" + customerID;
+            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
         }
     }
 }
