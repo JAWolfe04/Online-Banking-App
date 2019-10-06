@@ -5,6 +5,9 @@ namespace asp_core_mvc.Models
 {
     public class Rules
     {
+        public Int32 RuleID { get; set; }
+        public Int32 accountID { get; set; }
+
         [Display(Name = "Enable out of state transactions")]
         public bool OutStateTrans { get; set; }
 

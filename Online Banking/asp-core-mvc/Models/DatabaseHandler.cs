@@ -94,15 +94,17 @@ namespace asp_core_mvc.Models
             return prevReports;
         }
 
-        public Rules getRules(Int32 customerID)
+        public Rules getRules(Int32 customerID, Int32 accountID)
         {
             Rules rules = new Rules();
-            string sqlStatement = "SELECT * FROM Rules WHERE CustomerId =" + customerID;
+            rules.accountID = accountID;
+            string sqlStatement = "SELECT * FROM Rules WHERE CustomerId=" + customerID + " AND AccountID=" + accountID;
             MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while(rdr.Read())
             {
+                rules.RuleID = Convert.ToInt32(rdr["RuleID"]);
                 rules.OutStateTrans = Convert.ToBoolean(rdr["OutStateTrans"]);
                 rules.rangeTrans = Convert.ToBoolean(rdr["RangeTrans"]);
                 rules.startTrans = rdr["StartTrans"].ToString();
@@ -126,11 +128,34 @@ namespace asp_core_mvc.Models
 
         public void setRules(Int32 customerID, Rules rules)
         {
-            string sqlStatement = "REPLACE INTO Rules(CustomerId, OutStateTrans," +
-                "RangeTrans, StartTrans, EndTrans, CatTrans, Catagory, GreatTrans, " +
-                "GreatTransAmt, GreatDepo, GreatDepoAmt, GreatWithdraw, GreatWithdrawAmt," +
-                "GreatBal, GreatBalAmt, LessBal, LessBalAmt) VALUES (" +
-                customerID + "," + rules.OutStateTrans + "," +
+            string sqlStatement;
+            if (rules.RuleID > 0)
+            {
+                sqlStatement = "UPDATE rules SET" +
+                "`CustomerId` = " + customerID +
+                ",`AccountID` = " + rules.accountID +
+                ",`OutStateTrans` = " + rules.OutStateTrans +
+                ",`RangeTrans` = " + rules.rangeTrans +
+                ",`StartTrans` = '" + rules.startTrans +
+                "',`EndTrans` = '" + rules.endTrans +
+                "',`CatTrans` = " + rules.catTrans +
+                ",`Catagory` = '" + rules.catTxt +
+                "',`GreatTrans` = " + rules.greatTrans +
+                ",`GreatTransAmt` = " + rules.greatTransAmt +
+                ",`GreatDepo` = " + rules.greatDepo +
+                ",`GreatDepoAmt` = " + rules.greatDepoAmt +
+                ",`GreatWithdraw` = " + rules.greatWithdraw +
+                ",`GreatWithdrawAmt` = " + rules.greatWithdrawAmt +
+                ",`GreatBal` = " + rules.greatBal +
+                ",`GreatBalAmt` = " + rules.greatBalAmt +
+                ",`LessBal` = " + rules.lessBal +
+                ",`LessBalAmt` = " + rules.lessBalAmt +
+                " WHERE `RuleID` = " + rules.RuleID + ";";
+            }
+            else
+            {
+                sqlStatement = "INSERT INTO Rules VALUES (0," +
+                customerID + "," + rules.accountID + "," + rules.OutStateTrans + "," +
                 rules.rangeTrans + ",'" + rules.startTrans + "','" +
                 rules.endTrans + "'," + rules.catTrans + ",'" +
                 rules.catTxt + "'," + rules.greatTrans + "," +
@@ -139,19 +164,53 @@ namespace asp_core_mvc.Models
                 rules.greatWithdrawAmt + "," + rules.greatBal + "," +
                 rules.greatBalAmt + "," + rules.lessBal + "," +
                 rules.lessBalAmt + ")";
+            }
             MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();
         }
 
-        public void deleteRules(Int32 customerID)
+        public void deleteRules(Int32 customerID, Int32 accountID)
         {
-            string sqlStatement = "DELETE FROM Rules WHERE CustomerID=" + customerID;
+            string sqlStatement = "DELETE FROM Rules WHERE CustomerID=" + customerID + " AND AccountID=" + accountID;
             MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();
+        }
+
+        public Boolean validateUser(LoginModel login)
+        {
+            Boolean validUser = false;
+            String sqlQuery = "SELECT * FROM Customers WHERE Username='" + login.UserName + "' AND Password='" + login.Password + "';";
+            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
+            conn.Open();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                validUser = true;
+                login.CustomerID = Convert.ToInt32(rdr["CustomerID"]);
+                login.FullName = rdr["FirstName"].ToString() + " " + rdr["LastName"].ToString();
+            }
+            conn.Close();
+
+            return validUser;
+        }
+
+        public List<Int32> getAccounts(Int32 CustomerID)
+        {
+            List<Int32> accountID = new List<Int32>();
+            string sqlStatement = "SELECT AccountID FROM Customer_Accounts WHERE CustomerID=" + CustomerID;
+            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
+            conn.Open();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                accountID.Add(Convert.ToInt32(rdr["AccountID"]));
+            }
+            conn.Close();
+            return accountID;
         }
     }
 }
