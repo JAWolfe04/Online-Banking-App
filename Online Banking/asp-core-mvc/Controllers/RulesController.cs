@@ -5,34 +5,49 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using asp_core_mvc.Models;
-
-using MySql.Data;
-using MySql.Data.MySqlClient;
+using asp_core_mvc.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace asp_core_mvc.Controllers
 {
     public class RulesController : Controller
     {
-        //Temporary customerID for testing until a login is made
-        Int32 tempCustomerID = 5683648;
-
         public IActionResult Index()
         {
+            RulesModel rulesModel = new RulesModel();
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            return View(databaseHandler.getRules(tempCustomerID));
+            Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
+            List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
+            rulesModel.accounts = accountIDs;
+            rulesModel.rules = databaseHandler.getRules(customerID, accountIDs[0]);
+            rulesModel.curAccount = accountIDs[0];
+            return View(rulesModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(Rules ruleModel)
+        public IActionResult Index(RulesModel ruleModel)
+        {
+            RulesModel rulesModel = new RulesModel();
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
+            List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
+            rulesModel.accounts = accountIDs;
+            rulesModel.rules = databaseHandler.getRules(customerID, ruleModel.curAccount);
+            return View(rulesModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(RulesModel ruleModel)
         {
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            if (ruleModel.OutStateTrans == false && ruleModel.rangeTrans == false &&
-                ruleModel.catTrans == false && ruleModel.greatTrans == false &&
-                ruleModel.greatDepo == false && ruleModel.greatWithdraw == false &&
-                ruleModel.greatBal == false && ruleModel.lessBal == false)
-                databaseHandler.deleteRules(tempCustomerID);
+            Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
+            if (ruleModel.rules.OutStateTrans == false && ruleModel.rules.rangeTrans == false &&
+                ruleModel.rules.catTrans == false && ruleModel.rules.greatTrans == false &&
+                ruleModel.rules.greatDepo == false && ruleModel.rules.greatWithdraw == false &&
+                ruleModel.rules.greatBal == false && ruleModel.rules.lessBal == false)
+                databaseHandler.deleteRules(customerID, ruleModel.rules.accountID);
             else
-                databaseHandler.setRules(tempCustomerID, ruleModel);
+                databaseHandler.setRules(customerID, ruleModel.rules);
 
             return RedirectToAction("Index");
         }

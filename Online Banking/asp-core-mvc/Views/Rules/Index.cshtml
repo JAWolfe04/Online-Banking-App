@@ -1,4 +1,4 @@
-﻿@model asp_core_mvc.Models.Rules
+﻿@model asp_core_mvc.ViewModels.RulesModel
 
 @{
     ViewBag.Title = "Rules";
@@ -7,7 +7,19 @@
 <h1>@ViewBag.Title</h1>
 
 <div class="container">
+    <form asp-action="Index">
+        <div class="row dropdown col-sm-5 mb-3">
+            <select asp-for=@Model.curAccount onchange="this.form.submit()">
+                @foreach (Int32 accountID in Model.accounts)
+                {
+                    <option value=@accountID>Account #@accountID</option>
+                }
+            </select>
+        </div>
+    </form>
     <form asp-action="Edit">
+        <input type="hidden" asp-for=@Model.rules.RuleID>
+        <input type="hidden" asp-for=@Model.rules.accountID>
         <div class="row">
             <div class="col-sm-10">
                 <p>Send Alert if:</p>
@@ -21,84 +33,84 @@
                 <p>Out of State Transaction</p>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="OutStateTrans" class="sr-only"> </label>
-                <input asp-for="OutStateTrans">
+                <label asp-for=@Model.rules.OutStateTrans class="sr-only"> </label>
+                <input asp-for=@Model.rules.OutStateTrans>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-10 form-inline">
                 <div class="form-group mr-2">
-                    <label asp-for="startTrans" class="mr-1"></label>
-                    <input asp-for="startTrans">
+                    <label asp-for=@Model.rules.startTrans class="mr-1"></label>
+                    <input asp-for=@Model.rules.startTrans>
                 </div>
                 <div class="form-group">
-                    <label asp-for="endTrans" class="mr-1"></label>
-                    <input asp-for="endTrans">
+                    <label asp-for=@Model.rules.endTrans class="mr-1"></label>
+                    <input asp-for=@Model.rules.endTrans>
                 </div>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="rangeTrans" class="sr-only"></label>
-                <input asp-for="rangeTrans">
+                <label asp-for=@Model.rules.rangeTrans class="sr-only"></label>
+                <input asp-for=@Model.rules.rangeTrans>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-10">
-                <label asp-for="catTxt"></label>
-                <input asp-for="catTxt">
+                <label asp-for=@Model.rules.catTxt></label>
+                <input asp-for=@Model.rules.catTxt>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="catTrans" class="sr-only"></label>
-                <input asp-for="catTrans">
+                <label asp-for=@Model.rules.catTrans class="sr-only"></label>
+                <input asp-for=@Model.rules.catTrans>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-10">
-                <label asp-for="greatTransAmt"></label>
-                <input asp-for="greatTransAmt">
+                <label asp-for=@Model.rules.greatTransAmt></label>
+                <input asp-for=@Model.rules.greatTransAmt>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="greatTrans" class="sr-only"></label>
-                <input asp-for="greatTrans">
+                <label asp-for=@Model.rules.greatTrans class="sr-only"></label>
+                <input asp-for=@Model.rules.greatTrans>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-10">
-                <label asp-for="greatDepoAmt"></label>
-                <input asp-for="greatDepoAmt">
+                <label asp-for=@Model.rules.greatDepoAmt></label>
+                <input asp-for=@Model.rules.greatDepoAmt>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="greatDepo" class="sr-only"></label>
-                <input asp-for="greatDepo">
+                <label asp-for=@Model.rules.greatDepo class="sr-only"></label>
+                <input asp-for=@Model.rules.greatDepo>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-10">
-                <label asp-for="greatWithdrawAmt"></label>
-                <input asp-for="greatWithdrawAmt">
+                <label asp-for=@Model.rules.greatWithdrawAmt></label>
+                <input asp-for=@Model.rules.greatWithdrawAmt>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="greatWithdraw" class="sr-only"></label>
-                <input asp-for="greatWithdraw">
+                <label asp-for=@Model.rules.greatWithdraw class="sr-only"></label>
+                <input asp-for=@Model.rules.greatWithdraw>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-10">
-                <label asp-for="greatBalAmt"></label>
-                <input asp-for="greatBalAmt">
+                <label asp-for=@Model.rules.greatBalAmt></label>
+                <input asp-for=@Model.rules.greatBalAmt>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="greatBal" class="sr-only"></label>
-                <input asp-for="greatBal">
+                <label asp-for=@Model.rules.greatBal class="sr-only"></label>
+                <input asp-for=@Model.rules.greatBal>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-10">
-                <label asp-for="lessBalAmt"></label>
-                <input asp-for="lessBalAmt">
+                <label asp-for=@Model.rules.lessBalAmt></label>
+                <input asp-for=@Model.rules.lessBalAmt>
             </div>
             <div class="col-sm-2 text-center">
-                <label asp-for="lessBal" class="sr-only"></label>
-                <input asp-for="lessBal">
+                <label asp-for=@Model.rules.lessBal class="sr-only"></label>
+                <input asp-for=@Model.rules.lessBal>
             </div>
         </div>
         <div class="row">
