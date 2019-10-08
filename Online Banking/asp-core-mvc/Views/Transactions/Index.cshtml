@@ -14,7 +14,7 @@
             <th>Id</th>
             <th>Date</th>
             <th>Desc</th>
-            <th>Location</th>
+            <!--<th>Location</th> ADD --> 
             <th>Amount</th>
             <th>Balance</th>
         </tr>
@@ -26,9 +26,9 @@
             <td>@transaction.TransId</td>
             <td>@transaction.TransDate</td>
             <td>@transaction.TransDesc</td>
-            <td>@transaction.Location</td>
-            <td>@transaction.Amount</td>
-            <td>@transaction.Balance</td>
+            <!--<td>@transaction.Location</td> ADD -->
+            <td>@String.Format("{0}{1:0.00}", transaction.TransType, transaction.Amount)</td>
+            <td>@String.Format("{0:0.00}", transaction.Balance)</td>
         </tr>
         }
     </tbody>

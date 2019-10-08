@@ -57,6 +57,10 @@ namespace asp_core_mvc.Models
                 transaction.TransId = Convert.ToInt32(rdr["Transaction_id"]);
                 transaction.TransDate = rdr["TrnsDate"].ToString();
                 transaction.TransDesc = rdr["TrnsName"].ToString();
+                if (rdr["TrnsType"].ToString() == "CR")
+                    transaction.TransType = "";
+                else if (rdr["TrnsType"].ToString() == "DR")
+                    transaction.TransType = "-";
                 transaction.Location = rdr["TrnsLocation"].ToString();
                 transaction.Amount = Convert.ToDouble(rdr["TrnsAmount"]);
                 transaction.Balance = Convert.ToDouble(rdr["TrnsBalance"]);
