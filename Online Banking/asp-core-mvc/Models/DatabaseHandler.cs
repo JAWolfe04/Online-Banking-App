@@ -12,13 +12,20 @@ namespace asp_core_mvc.Models
 
         public DatabaseHandler()
         {
-            string connStr = "server=localhost;" +
+            string localconn = "server=localhost;" +
                              "user=root;" +
                              "database=cs451_project;" +
                              "port=3306;" +
                              "password=123456";
 
-            conn = new MySqlConnection(connStr);
+            string UMKCconn = "server=KC-ISIA-MySQL1D;" +
+                             "user=CS451R_FS19G6usr;" +
+                             "database=cs451r_fs2019_group6;" +
+                             "port=3306;" +
+                             "password=TNmDS9KuTrJu7bl";
+
+            //Change to the DB connection you need
+            conn = new MySqlConnection(UMKCconn);
         }
 
         public List<Alerts> getAlerts()
@@ -30,8 +37,8 @@ namespace asp_core_mvc.Models
             while (rdr.Read())
             {
                 Alerts alert = new Alerts();
-                alert.TransDate = rdr.GetString(0);
-                alert.AlertReason = rdr.GetString(1);
+                alert.TransDate = rdr["TransDate"].ToString();
+                alert.AlertReason = rdr["AlertReason"].ToString();
                 alerts.Add(alert);
             }
             conn.Close();
@@ -47,12 +54,12 @@ namespace asp_core_mvc.Models
             while (rdr.Read())
             {
                 Transactions transaction = new Transactions();
-                transaction.TransId = rdr.GetInt32(0);
-                transaction.TransDate = rdr.GetString(1);
-                transaction.TransDesc = rdr.GetString(2);
-                transaction.Location = rdr.GetString(3);
-                transaction.Amount = rdr.GetDouble(4);
-                transaction.Balance = rdr.GetDouble(5);
+                transaction.TransId = Convert.ToInt32(rdr["Transaction_id"]);
+                transaction.TransDate = rdr["TrnsDate"].ToString();
+                transaction.TransDesc = rdr["TrnsName"].ToString();
+                transaction.Location = rdr["TrnsLocation"].ToString();
+                transaction.Amount = Convert.ToDouble(rdr["TrnsAmount"]);
+                transaction.Balance = Convert.ToDouble(rdr["TrnsBalance"]);
                 transactions.Add(transaction);
             }
             conn.Close();
@@ -183,15 +190,15 @@ namespace asp_core_mvc.Models
         public Boolean validateUser(LoginModel login)
         {
             Boolean validUser = false;
-            String sqlQuery = "SELECT * FROM Customers WHERE Username='" + login.UserName + "' AND Password='" + login.Password + "';";
+            String sqlQuery = "SELECT * FROM Customers WHERE CustUserName='" + login.UserName + "' AND CustPassword='" + login.Password + "';";
             MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             if (rdr.Read())
             {
                 validUser = true;
-                login.CustomerID = Convert.ToInt32(rdr["CustomerID"]);
-                login.FullName = rdr["FirstName"].ToString() + " " + rdr["LastName"].ToString();
+                login.CustomerID = Convert.ToInt32(rdr["Customer_ID"]);
+                login.FullName = rdr["CustFirst_Name"].ToString() + " " + rdr["CustLast_Name"].ToString();
             }
             conn.Close();
 
