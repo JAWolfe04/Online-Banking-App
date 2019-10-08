@@ -22,10 +22,10 @@ namespace asp_core_mvc.Models
         [Display(Name = "End")]
         public String endTrans { get; set; }
 
-        [Display(Name = "Enable transaction catagories")]
+        [Display(Name = "Enable transaction categories")]
         public bool catTrans { get; set; }
 
-        [Display(Name = "Transaction catagory")]
+        [Display(Name = "Transaction category")]
         public string catTxt { get; set; }
 
         [Display(Name = "Enable transactions more than amount")]

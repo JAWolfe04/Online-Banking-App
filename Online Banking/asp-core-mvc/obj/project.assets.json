@@ -13610,11 +13610,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\david\\Desktop\\CS451\\CS451 Commerce Bank Project\\Online Banking\\asp-core-mvc\\asp-core-mvc.csproj",
+      "projectUniqueName": "C:\\Users\\david\\Documents\\GitHub\\semester-group-assignment-group-6\\Online Banking\\asp-core-mvc\\asp-core-mvc.csproj",
       "projectName": "asp-core-mvc",
-      "projectPath": "C:\\Users\\david\\Desktop\\CS451\\CS451 Commerce Bank Project\\Online Banking\\asp-core-mvc\\asp-core-mvc.csproj",
+      "projectPath": "C:\\Users\\david\\Documents\\GitHub\\semester-group-assignment-group-6\\Online Banking\\asp-core-mvc\\asp-core-mvc.csproj",
       "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\david\\Desktop\\CS451\\CS451 Commerce Bank Project\\Online Banking\\asp-core-mvc\\obj\\",
+      "outputPath": "C:\\Users\\david\\Documents\\GitHub\\semester-group-assignment-group-6\\Online Banking\\asp-core-mvc\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
