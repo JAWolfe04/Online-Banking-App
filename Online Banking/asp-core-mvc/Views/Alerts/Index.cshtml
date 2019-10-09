@@ -11,6 +11,7 @@
 <table class="table table-condensed table-hover">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Date</th>
             <th>Reason for Alert</th>
         </tr>
@@ -19,6 +20,7 @@
         @foreach (Alerts alert in Model)
         {
             <tr>
+                <td>@alert.TransId</td>
                 <td>@alert.TransDate</td>
                 <td>@alert.AlertReason</td>
             </tr>
