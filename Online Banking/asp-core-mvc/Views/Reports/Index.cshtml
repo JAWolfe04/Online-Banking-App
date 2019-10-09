@@ -11,15 +11,15 @@
 <table class="table table-condensed table-hover">
     <thead>
         <tr>
-            <th>Alerts</th>
-            <th>Times Tripped Today</th>
+            <th>Rule</th>
+            <th>Times Tripped Recently</th>
         </tr>
     </thead>
     <tbody>
         @foreach (Reports report in Model.Reports)
         {
         <tr>
-            <td>@report.Alert</td>
+            <td>@report.RuleReport</td>
             <td>@report.TimesRecently</td>
         </tr>
         }
