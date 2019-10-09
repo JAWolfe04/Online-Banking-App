@@ -31,13 +31,14 @@ namespace asp_core_mvc.Models
         public List<Alerts> getAlerts()
         {
             List<Alerts> alerts = new List<Alerts>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Alerts", conn);
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Alerts ORDER BY Transaction_id DESC", conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 Alerts alert = new Alerts();
-                alert.TransDate = rdr["TransDate"].ToString();
+                alert.TransId = Convert.ToInt32(rdr["Transaction_id"]);
+                alert.TransDate = rdr["TrnsDate"].ToString();
                 alert.AlertReason = rdr["AlertReason"].ToString();
                 alerts.Add(alert);
             }
@@ -48,7 +49,7 @@ namespace asp_core_mvc.Models
         public List<Transactions> getTransactions()
         {
             List<Transactions> transactions = new List<Transactions>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Transactions", conn);
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Transactions ORDER BY Transaction_id DESC", conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -57,6 +58,10 @@ namespace asp_core_mvc.Models
                 transaction.TransId = Convert.ToInt32(rdr["Transaction_id"]);
                 transaction.TransDate = rdr["TrnsDate"].ToString();
                 transaction.TransDesc = rdr["TrnsName"].ToString();
+                if (rdr["TrnsType"].ToString() == "CR") // Deposit
+                    transaction.TransType = "";
+                else if (rdr["TrnsType"].ToString() == "DR") // Withdrawal
+                    transaction.TransType = "-";
                 transaction.Location = rdr["TrnsLocation"].ToString();
                 transaction.Amount = Convert.ToDouble(rdr["TrnsAmount"]);
                 transaction.Balance = Convert.ToDouble(rdr["TrnsBalance"]);
@@ -75,8 +80,8 @@ namespace asp_core_mvc.Models
             while (rdr.Read())
             {
                 Reports report = new Reports();
-                report.Alert = rdr.GetString(0);
-                report.TimesRecently = rdr.GetInt32(1);
+                report.RuleReport = rdr["Rules"].ToString();
+                report.TimesRecently = Convert.ToInt32(rdr["TimesRecent"]);
                 reports.Add(report);
             }
             conn.Close();
@@ -86,15 +91,15 @@ namespace asp_core_mvc.Models
         public List<Reports> getPrevReports()
         {
             List<Reports> prevReports = new List<Reports>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM PreviousReports", conn);
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM PreviousReports ORDER BY EndDate DESC", conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 Reports prevReport = new Reports();
-                prevReport.StartDate = rdr.GetString(0);
-                prevReport.EndDate = rdr.GetString(1);
-                prevReport.AlertsInTimePeriod = rdr.GetInt32(2);
+                prevReport.StartDate = rdr["StartDate"].ToString();
+                prevReport.EndDate = rdr["EndDate"].ToString();
+                prevReport.AlertsInTimePeriod = Convert.ToInt32(rdr["AlertsInTimePeriod"]);
                 prevReports.Add(prevReport);
             }
             conn.Close();
