@@ -1,0 +1,47 @@
+﻿@model asp_core_mvc.ViewModels.ReportsModel
+
+@{
+    ViewBag.Title = "Reports";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Rule</th>
+            <th>Times Tripped Recently</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Reports report in Model.Reports)
+        {
+        <tr>
+            <td>@report.RuleReport</td>
+            <td>@report.TimesRecently</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<p>Previous Reports</p>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Alerts Tripped in Time Period</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Reports report in Model.PrevReports)
+        {
+        <tr>
+            <td>@report.StartDate</td>
+            <td>@report.EndDate</td>
+            <td>@report.AlertsInTimePeriod</td>
+        </tr>
+        }
+    </tbody>
+</table>
