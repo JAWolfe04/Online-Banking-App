@@ -8,6 +8,7 @@ using asp_core_mvc.Models;
 
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Http;
 
 namespace asp_core_mvc.Controllers
 {
@@ -15,8 +16,9 @@ namespace asp_core_mvc.Controllers
     {
         public IActionResult Index()
         {
+            Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            return View(databaseHandler.getAlerts());
+            return View(databaseHandler.getAlerts(customerID));
         }
 
 

@@ -6,12 +6,9 @@
 
 <h1>@ViewBag.Title</h1> 
 
-<p>Transactions</p> 
-
 <table class="table table-condensed table-hover">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Date</th>
             <th>Desc</th>
             <th>Location</th>
@@ -23,7 +20,6 @@
         @foreach (Transactions transaction in Model)
         {
         <tr>
-            <td>@transaction.TransId</td>
             <td>@transaction.TransDate</td>
             <td>@transaction.TransDesc</td>
             <td>@transaction.Location</td>

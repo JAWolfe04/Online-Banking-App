@@ -28,21 +28,41 @@ namespace asp_core_mvc.Models
             conn = new MySqlConnection(UMKCconn);
         }
 
-        public List<Alerts> getAlerts()
+        public List<Alerts> getAlerts(Int32 customerID)
         {
             List<Alerts> alerts = new List<Alerts>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Alerts ORDER BY Transaction_id DESC", conn);
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Alerts WHERE Customer_ID = " + customerID + " ORDER BY Transaction_id DESC;", conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 Alerts alert = new Alerts();
                 alert.TransId = Convert.ToInt32(rdr["Transaction_id"]);
-                alert.TransDate = rdr["TrnsDate"].ToString();
                 alert.AlertReason = rdr["AlertReason"].ToString();
                 alerts.Add(alert);
             }
             conn.Close();
+
+            for(int i = 0; i < alerts.Count; ++i)
+            {
+                cmd = new MySqlCommand("SELECT * FROM Transactions WHERE Transaction_id = " + alerts[i].TransId, conn);
+                conn.Open();
+                rdr = cmd.ExecuteReader();
+                while(rdr.Read())
+                {
+                    alerts[i].TransDate = rdr["TrnsDate"].ToString();
+                    alerts[i].TransDesc = rdr["TrnsName"].ToString();
+                    if (rdr["TrnsType"].ToString() == "CR") // Deposit
+                        alerts[i].TransType = "";
+                    else if (rdr["TrnsType"].ToString() == "DR") // Withdrawal
+                        alerts[i].TransType = "-";
+                    alerts[i].Location = rdr["TrnsLocation"].ToString();
+                    alerts[i].Amount = Convert.ToDouble(rdr["TrnsAmount"]);
+                    alerts[i].Balance = Convert.ToDouble(rdr["TrnsBalance"]);
+                }
+                conn.Close();
+            }
+
             return alerts;
         }
 
@@ -110,13 +130,13 @@ namespace asp_core_mvc.Models
         {
             Rules rules = new Rules();
             rules.accountID = accountID;
-            string sqlStatement = "SELECT * FROM Rules WHERE CustomerId=" + customerID + " AND AccountID=" + accountID;
+            string sqlStatement = "SELECT * FROM Rules WHERE Customer_ID=" + customerID + " AND Account_ID=" + accountID;
             MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while(rdr.Read())
             {
-                rules.RuleID = Convert.ToInt32(rdr["RuleID"]);
+                rules.RuleID = Convert.ToInt32(rdr["Rule_ID"]);
                 rules.OutStateTrans = Convert.ToBoolean(rdr["OutStateTrans"]);
                 rules.rangeTrans = Convert.ToBoolean(rdr["RangeTrans"]);
                 rules.startTrans = rdr["StartTrans"].ToString();
@@ -144,8 +164,8 @@ namespace asp_core_mvc.Models
             if (rules.RuleID > 0)
             {
                 sqlStatement = "UPDATE rules SET" +
-                "`CustomerId` = " + customerID +
-                ",`AccountID` = " + rules.accountID +
+                "`Customer_ID` = " + customerID +
+                ",`Account_ID` = " + rules.accountID +
                 ",`OutStateTrans` = " + rules.OutStateTrans +
                 ",`RangeTrans` = " + rules.rangeTrans +
                 ",`StartTrans` = '" + rules.startTrans +
@@ -162,7 +182,7 @@ namespace asp_core_mvc.Models
                 ",`GreatBalAmt` = " + rules.greatBalAmt +
                 ",`LessBal` = " + rules.lessBal +
                 ",`LessBalAmt` = " + rules.lessBalAmt +
-                " WHERE `RuleID` = " + rules.RuleID + ";";
+                " WHERE `Rule_ID` = " + rules.RuleID + ";";
             }
             else
             {
@@ -185,7 +205,7 @@ namespace asp_core_mvc.Models
 
         public void deleteRules(Int32 customerID, Int32 accountID)
         {
-            string sqlStatement = "DELETE FROM Rules WHERE CustomerID=" + customerID + " AND AccountID=" + accountID;
+            string sqlStatement = "DELETE FROM Rules WHERE Customer_ID=" + customerID + " AND Account_ID=" + accountID;
             MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
             cmd.ExecuteNonQuery();
@@ -213,13 +233,13 @@ namespace asp_core_mvc.Models
         public List<Int32> getAccounts(Int32 CustomerID)
         {
             List<Int32> accountID = new List<Int32>();
-            string sqlStatement = "SELECT AccountID FROM Customer_Accounts WHERE CustomerID=" + CustomerID;
+            string sqlStatement = "SELECT Account_ID FROM Customer_Accounts WHERE Customer_ID=" + CustomerID;
             MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
-                accountID.Add(Convert.ToInt32(rdr["AccountID"]));
+                accountID.Add(Convert.ToInt32(rdr["Account_ID"]));
             }
             conn.Close();
             return accountID;
