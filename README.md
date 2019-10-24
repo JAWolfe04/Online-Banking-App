@@ -9,3 +9,5 @@
 [Requirements Document](https://drive.google.com/file/d/1yZXbY7hK4JPU1Sv_wsdsOhc1OIvK-RKF/view?usp=sharing)
 
 [Project Plan](https://drive.google.com/file/d/1uFflc3Nxn3kO5gckeC0MrsP_tgIqi7AX/view)
+
+[Architecture Document](https://drive.google.com/file/d/1GkOJ_-omDaYag-p-Z-son-h3iK5hVcDw/view?usp=sharing)
