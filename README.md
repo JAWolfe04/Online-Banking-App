@@ -10,4 +10,4 @@
 
 [Project Plan](https://drive.google.com/file/d/1uFflc3Nxn3kO5gckeC0MrsP_tgIqi7AX/view)
 
-[Architecture Document](https://docs.google.com/document/d/1mXrL80eHENBKccmmqaGru-A6_V5p1oA16a3mekcdKPs/edit?usp=sharing)
+[Architecture Document](https://drive.google.com/file/d/1GkOJ_-omDaYag-p-Z-son-h3iK5hVcDw/view?usp=sharing)
