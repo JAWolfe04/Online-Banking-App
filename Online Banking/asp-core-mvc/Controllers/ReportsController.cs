@@ -67,7 +67,7 @@ namespace asp_core_mvc.Controllers
             }
             ws.Cells["A:AZ"].AutoFitColumns();
             result = pkg.GetAsByteArray();
-            return File(result, "application/vnd.ms-excel", "test.xlsx");
+            return File(result, "application/vnd.ms-excel", "export.xlsx");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
