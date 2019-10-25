@@ -1,6 +1,0 @@
-C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.1\asp-core-mvc.csprojAssemblyReference.cache
-C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.1\asp-core-mvc.csproj.CoreCompileInputs.cache
-C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.1\asp-core-mvc.RazorAssemblyInfo.cache
-C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.1\asp-core-mvc.RazorAssemblyInfo.cs
-C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.1\asp-core-mvc.AssemblyInfoInputs.cache
-C:\Users\david\Desktop\CS451\CS451 Commerce Bank Project\asp-core-mvc\asp-core-mvc\obj\Debug\netcoreapp2.1\asp-core-mvc.AssemblyInfo.cs
