@@ -8,8 +8,8 @@
 
 <div class="container">
     <form asp-action="Index">
-        <div class="row dropdown col-sm-5 mb-3">
-            <select asp-for=@Model.curAccount onchange="this.form.submit()">
+        <div class="row col-sm-3 mb-3">
+            <select class="form-control" asp-for=@Model.curAccount onchange="this.form.submit()">
                 @foreach (Int32 accountID in Model.accounts)
                 {
                     <option value=@accountID>Account #@accountID</option>
