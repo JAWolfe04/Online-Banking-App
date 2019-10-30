@@ -24,8 +24,14 @@ namespace asp_core_mvc.Models
                              "port=3306;" +
                              "password=TNmDS9KuTrJu7bl";
 
-            //Change to the DB connection you need
+            // Change to the DB connection you need
             conn = new MySqlConnection(UMKCconn);
+            // conn = new MySqlConnection(localconn);
+        }
+
+        public MySqlConnection getConn()
+        {
+            return conn;
         }
 
         public List<Alerts> getAlerts(Int32 customerID)
