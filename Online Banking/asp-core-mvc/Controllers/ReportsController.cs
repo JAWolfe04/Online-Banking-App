@@ -5,6 +5,8 @@ using asp_core_mvc.ViewModels;
 using System;
 using OfficeOpenXml;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Http;
 
 namespace asp_core_mvc.Controllers
 {
@@ -19,7 +21,8 @@ namespace asp_core_mvc.Controllers
             return View(reportsModel);
         }
 
-        public IActionResult Export() // EPPlus
+        [HttpGet]
+        public IActionResult Export(String sd, String ed) // EPPlus [params = startdate, enddate]
         {
             byte[] result;
 
@@ -39,35 +42,38 @@ namespace asp_core_mvc.Controllers
             ws.Cells["F7"].Value = "Balance";
             //ws.Cells["G7"].Value = "TransID";
 
-            // fill with data from here //////////////////// REPLACE WITH DATABASE DATA
-            ws.Cells["B3"].Value = "07/01/19";
-            ws.Cells["B4"].Value = "07/31/19";
-            ws.Cells["B5"].Value = "2";
-            List<List<string>> reps = new List<List<string>>();
-            reps.Add(new List<string>
-            {
-                "07/07/19", "Out of State", "Target", "NE", "-98.00", "5138.53"
-            });
-            reps.Add(new List<string>
-            {
-                "07/06/19", "Out of State", "Price Chopper", "NE", "-43.00", "5236.53"
-            });
-            // fill with data above here //////////////////// REPLACE WITH DATABASE DATA
+            DatabaseHandler databaseHandler = new DatabaseHandler();
+            List<Reports> reps = databaseHandler.getPrevReports();
+            ws.Cells["B3"].Value = sd; // Start Date
+            ws.Cells["B4"].Value = ed; // End Date
+            ws.Cells["B5"].Value = reps.Find(x => x.StartDate.Contains(sd) && x.EndDate.Contains(ed)).AlertsInTimePeriod; // Alerts Tripped
+
+            List<Alerts> alrts = databaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"));
 
             int startRow = 8;
-            foreach (List<string> rep in reps)
+            string monthDate = sd.Substring(0, 2);
+            string yearDate = sd.Substring(sd.Length - 3, 2);
+            foreach (Alerts alrt in alrts)
             {
-                ws.Cells["A" + startRow.ToString()].Value = rep[0];
-                ws.Cells["B" + startRow.ToString()].Value = rep[1];
-                ws.Cells["C" + startRow.ToString()].Value = rep[2];
-                ws.Cells["D" + startRow.ToString()].Value = rep[3];
-                ws.Cells["E" + startRow.ToString()].Value = rep[4];
-                ws.Cells["F" + startRow.ToString()].Value = rep[5];
-                startRow++;
+                // monthly case ___ (same month and year)
+                string alrtDate = alrt.TransDate;
+                if (alrtDate.Substring(0, 2) == monthDate && alrtDate.Substring(alrtDate.Length - 3, 2) == yearDate)
+                // monthly case ^^^ (same month and year) 
+                {
+                    ws.Cells["A" + startRow.ToString()].Value = alrt.TransDate; // Date
+                    ws.Cells["B" + startRow.ToString()].Value = alrt.AlertReason; // Reason for Alert
+                    ws.Cells["C" + startRow.ToString()].Value = alrt.TransDesc; // Description
+                    ws.Cells["D" + startRow.ToString()].Value = alrt.Location; // Location
+                    ws.Cells["E" + startRow.ToString()].Value = alrt.Amount; // Amount
+                    ws.Cells["F" + startRow.ToString()].Value = alrt.Balance; // Balance
+                    startRow++;
+                }
             }
+
             ws.Cells["A:AZ"].AutoFitColumns();
             result = pkg.GetAsByteArray();
-            return File(result, "application/vnd.ms-excel", "export.xlsx");
+            string fileName = "export" + sd + "to" + ed + ".xlsx";
+            return File(result, "application/vnd.ms-excel", fileName);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

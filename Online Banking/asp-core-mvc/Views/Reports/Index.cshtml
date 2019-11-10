@@ -42,8 +42,7 @@
             <td>@report.StartDate</td>
             <td>@report.EndDate</td>
             <td>@report.AlertsInTimePeriod</td>
-            <!--<td><button type="button" onclick=@Url.Action("Index", "Reports")>___</button></td>-->
-            <td><a href="/Reports/Export">Export</a></td>
+            <td><a asp-controller="Reports" asp-action="Export" asp-route-sd=@report.StartDate asp-route-ed=@report.EndDate>Export</a></td>
         </tr>
         }
     </tbody>
