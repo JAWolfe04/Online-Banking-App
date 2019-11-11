@@ -19,8 +19,11 @@ namespace asp_core_mvc.Controllers
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
             rulesModel.accounts = accountIDs;
-            rulesModel.rules = databaseHandler.getRules(customerID, accountIDs[0]);
-            rulesModel.curAccount = accountIDs[0];
+            if (accountIDs.Count > 0)
+            {
+                rulesModel.rules = databaseHandler.getRules(customerID, accountIDs[0]);
+                rulesModel.curAccount = accountIDs[0];
+            }
             return View(rulesModel);
         }
 

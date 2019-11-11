@@ -15,9 +15,10 @@ namespace asp_core_mvc.Controllers
         public IActionResult Index()
         {
             DatabaseHandler databaseHandler = new DatabaseHandler();
+            Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             ReportsModel reportsModel = new ReportsModel();
-            reportsModel.Reports = databaseHandler.getReports();
-            reportsModel.PrevReports = databaseHandler.getPrevReports();
+            reportsModel.Reports = databaseHandler.getReports(customerID, 12341001);
+            reportsModel.PrevReports = databaseHandler.getPrevReports(customerID, 12341001);
             return View(reportsModel);
         }
 
@@ -42,13 +43,14 @@ namespace asp_core_mvc.Controllers
             ws.Cells["F7"].Value = "Balance";
             //ws.Cells["G7"].Value = "TransID";
 
+            Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            List<Reports> reps = databaseHandler.getPrevReports();
+            List<Reports> reps = databaseHandler.getPrevReports(customerID, 12341000);
             ws.Cells["B3"].Value = sd; // Start Date
             ws.Cells["B4"].Value = ed; // End Date
             ws.Cells["B5"].Value = reps.Find(x => x.StartDate.Contains(sd) && x.EndDate.Contains(ed)).AlertsInTimePeriod; // Alerts Tripped
 
-            List<Alerts> alrts = databaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"));
+            List<Alerts> alrts = databaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), 12341000);
 
             int startRow = 8;
             string monthDate = sd.Substring(0, 2);
@@ -61,7 +63,7 @@ namespace asp_core_mvc.Controllers
                 // monthly case ^^^ (same month and year) 
                 {
                     ws.Cells["A" + startRow.ToString()].Value = alrt.TransDate; // Date
-                    ws.Cells["B" + startRow.ToString()].Value = alrt.AlertReason; // Reason for Alert
+                    ws.Cells["B" + startRow.ToString()].Value = alrt.Reason; // Reason for Alert
                     ws.Cells["C" + startRow.ToString()].Value = alrt.TransDesc; // Description
                     ws.Cells["D" + startRow.ToString()].Value = alrt.Location; // Location
                     ws.Cells["E" + startRow.ToString()].Value = alrt.Amount; // Amount

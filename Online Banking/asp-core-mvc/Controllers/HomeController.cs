@@ -17,8 +17,8 @@ namespace asp_core_mvc.Controllers
             DatabaseHandler DBHandle = new DatabaseHandler();
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             HomeModel homeModel = new HomeModel();
-            homeModel.Alerts = DBHandle.getAlerts(customerID);
-            homeModel.Transactions = DBHandle.getTransactions();
+            homeModel.Alerts = DBHandle.getAlerts(customerID, 12341001);
+            homeModel.Transactions = DBHandle.getTransactions(12341001);
 
             return View(homeModel);
         }

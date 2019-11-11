@@ -18,7 +18,7 @@ namespace asp_core_mvc.Controllers
         {
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            return View(databaseHandler.getAlerts(customerID));
+            return View(databaseHandler.getAlerts(customerID, 12341001));
         }
 
 

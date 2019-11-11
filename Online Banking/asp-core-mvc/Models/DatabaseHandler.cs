@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using MySql.Data.Types;
 using MySql.Data.MySqlClient;
 
 namespace asp_core_mvc.Models
@@ -25,7 +27,7 @@ namespace asp_core_mvc.Models
                              "password=TNmDS9KuTrJu7bl";
 
             // Change to the DB connection you need
-            conn = new MySqlConnection(UMKCconn);
+            conn = new MySqlConnection(localconn);
             // conn = new MySqlConnection(localconn);
         }
 
@@ -34,101 +36,122 @@ namespace asp_core_mvc.Models
             return conn;
         }
 
-        public List<Alerts> getAlerts(Int32 customerID)
+        public List<Alerts> getAlerts(Int32 customerID, Int32 accountID)
         {
             List<Alerts> alerts = new List<Alerts>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Alerts WHERE Customer_ID = " + customerID + " ORDER BY Transaction_id DESC;", conn);
+
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getAlerts", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@accountID", accountID);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 Alerts alert = new Alerts();
-                alert.TransId = Convert.ToInt32(rdr["Transaction_id"]);
-                alert.AlertReason = rdr["AlertReason"].ToString();
+                alert.AlertID = Convert.ToInt32(rdr["ID"]);
+                alert.TransId = Convert.ToInt32(rdr["TransactionID"]);
+                alert.TransDate = rdr["Date"].ToString();
+                alert.TransDesc = rdr["Desc"].ToString();
+                if (rdr["Type"].ToString() == "CR") // Deposit
+                    alert.TransType = "";
+                else if (rdr["Type"].ToString() == "DR") // Withdrawal
+                    alert.TransType = "-";
+                alert.Location = rdr["Location"].ToString();
+                alert.Amount = Convert.ToDouble(rdr["Amount"]);
+                alert.Balance = Convert.ToDouble(rdr["Balance"]);
+                alert.Reason = rdr["Reason"].ToString();
+                alert.Removed = Convert.ToBoolean(rdr["Removed"]);
                 alerts.Add(alert);
             }
             conn.Close();
 
-            for(int i = 0; i < alerts.Count; ++i)
-            {
-                cmd = new MySqlCommand("SELECT * FROM Transactions WHERE Transaction_id = " + alerts[i].TransId, conn);
-                conn.Open();
-                rdr = cmd.ExecuteReader();
-                while(rdr.Read())
-                {
-                    alerts[i].TransDate = rdr["TrnsDate"].ToString();
-                    alerts[i].TransDesc = rdr["TrnsName"].ToString();
-                    if (rdr["TrnsType"].ToString() == "CR") // Deposit
-                        alerts[i].TransType = "";
-                    else if (rdr["TrnsType"].ToString() == "DR") // Withdrawal
-                        alerts[i].TransType = "-";
-                    alerts[i].Location = rdr["TrnsLocation"].ToString();
-                    alerts[i].Amount = Convert.ToDouble(rdr["TrnsAmount"]);
-                    alerts[i].Balance = Convert.ToDouble(rdr["TrnsBalance"]);
-                }
-                conn.Close();
-            }
-
             return alerts;
         }
 
-        public List<Transactions> getTransactions()
+        public List<Transactions> getTransactions(Int32 accountID)
         {
             List<Transactions> transactions = new List<Transactions>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Transactions ORDER BY Transaction_id DESC", conn);
+
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getTransactions", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@accountID", accountID);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 Transactions transaction = new Transactions();
-                transaction.TransId = Convert.ToInt32(rdr["Transaction_id"]);
-                transaction.TransDate = rdr["TrnsDate"].ToString();
-                transaction.TransDesc = rdr["TrnsName"].ToString();
-                if (rdr["TrnsType"].ToString() == "CR") // Deposit
+                transaction.TransId = Convert.ToInt32(rdr["ID"]);
+                transaction.TransDate = rdr["Date"].ToString();
+                transaction.TransDesc = rdr["Desc"].ToString();
+                if (rdr["Type"].ToString() == "CR") // Deposit
                     transaction.TransType = "";
-                else if (rdr["TrnsType"].ToString() == "DR") // Withdrawal
+                else if (rdr["Type"].ToString() == "DR") // Withdrawal
                     transaction.TransType = "-";
-                transaction.Location = rdr["TrnsLocation"].ToString();
-                transaction.Amount = Convert.ToDouble(rdr["TrnsAmount"]);
-                transaction.Balance = Convert.ToDouble(rdr["TrnsBalance"]);
+                transaction.Location = rdr["Location"].ToString();
+                transaction.Amount = Convert.ToDouble(rdr["Amount"]);
+                transaction.Balance = Convert.ToDouble(rdr["Balance"]);
                 transactions.Add(transaction);
             }
             conn.Close();
+
             return transactions;
         }
 
-        public List<Reports> getReports()
+        public List<Reports> getReports(Int32 customerID, Int32 accountID)
         {
             List<Reports> reports = new List<Reports>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Reports", conn);
+
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getReports", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@accountID", accountID);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
-                Reports report = new Reports();
-                report.RuleReport = rdr["Rules"].ToString();
-                report.TimesRecently = Convert.ToInt32(rdr["TimesRecent"]);
-                reports.Add(report);
+                if(Convert.ToInt32(rdr["OutState"]) > 0)
+                    reports.Add(new Reports("Out of State", Convert.ToInt32(rdr["OutState"])));
+                if (Convert.ToInt32(rdr["Range"]) > 0)
+                    reports.Add(new Reports("Flagged date range", Convert.ToInt32(rdr["Range"])));
+                if (Convert.ToInt32(rdr["Category"]) > 0)
+                    reports.Add(new Reports("Flagged catagory", Convert.ToInt32(rdr["Category"])));
+                if (Convert.ToInt32(rdr["ExcessTran"]) > 0)
+                    reports.Add(new Reports("Excessive Transaction", Convert.ToInt32(rdr["ExcessTran"])));
+                if (Convert.ToInt32(rdr["ExcessDepo"]) > 0)
+                    reports.Add(new Reports("Excessive Deposit", Convert.ToInt32(rdr["ExcessDepo"])));
+                if (Convert.ToInt32(rdr["ExcessWith"]) > 0)
+                    reports.Add(new Reports("Excessive Withdraw", Convert.ToInt32(rdr["ExcessWith"])));
+                if (Convert.ToInt32(rdr["HighBal"]) > 0)
+                    reports.Add(new Reports("High Balance", Convert.ToInt32(rdr["HighBal"])));
+                if (Convert.ToInt32(rdr["LowBal"]) > 0)
+                    reports.Add(new Reports("Low Balance", Convert.ToInt32(rdr["LowBal"])));
             }
             conn.Close();
+
             return reports;
         }
 
-        public List<Reports> getPrevReports()
+        public List<Reports> getPrevReports(Int32 customerID, Int32 accountID)
         {
             List<Reports> prevReports = new List<Reports>();
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM PreviousReports ORDER BY EndDate DESC", conn);
+
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getPrevReports", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@accountID", accountID);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 Reports prevReport = new Reports();
-                prevReport.StartDate = rdr["StartDate"].ToString();
-                prevReport.EndDate = rdr["EndDate"].ToString();
+                prevReport.StartDate = rdr["Start"].ToString();
+                prevReport.EndDate = rdr["End"].ToString();
                 prevReport.AlertsInTimePeriod = Convert.ToInt32(rdr["AlertsInTimePeriod"]);
                 prevReports.Add(prevReport);
             }
             conn.Close();
+
             return prevReports;
         }
 
@@ -136,84 +159,71 @@ namespace asp_core_mvc.Models
         {
             Rules rules = new Rules();
             rules.accountID = accountID;
-            string sqlStatement = "SELECT * FROM Rules WHERE Customer_ID=" + customerID + " AND Account_ID=" + accountID;
-            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
+
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getRules", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@accountID", accountID);
             MySqlDataReader rdr = cmd.ExecuteReader();
-            while(rdr.Read())
+            while (rdr.Read())
             {
-                rules.RuleID = Convert.ToInt32(rdr["Rule_ID"]);
-                rules.OutStateTrans = Convert.ToBoolean(rdr["OutStateTrans"]);
-                rules.rangeTrans = Convert.ToBoolean(rdr["RangeTrans"]);
-                rules.startTrans = rdr["StartTrans"].ToString();
-                rules.endTrans = rdr["EndTrans"].ToString();
-                rules.catTrans = Convert.ToBoolean(rdr["CatTrans"]);
-                rules.catTxt = rdr["Catagory"].ToString();
-                rules.greatTrans = Convert.ToBoolean(rdr["GreatTrans"]);
-                rules.greatTransAmt = Convert.ToInt32(rdr["GreatTransAmt"]);
-                rules.greatDepo = Convert.ToBoolean(rdr["GreatDepo"]);
-                rules.greatDepoAmt = Convert.ToDouble(rdr["GreatDepoAmt"]);
-                rules.greatWithdraw = Convert.ToBoolean(rdr["GreatWithdraw"]);
-                rules.greatWithdrawAmt = Convert.ToDouble(rdr["GreatWithdrawAmt"]);
-                rules.greatBal = Convert.ToBoolean(rdr["GreatBal"]);
-                rules.greatBalAmt = Convert.ToDouble(rdr["GreatBalAmt"]);
-                rules.lessBal = Convert.ToBoolean(rdr["LessBal"]);
-                rules.lessBalAmt = Convert.ToDouble(rdr["LessBalAmt"]);
+                rules.OutStateTrans = Convert.ToBoolean(rdr["OutStateChk"]);
+                rules.rangeTrans = Convert.ToBoolean(rdr["RangeChk"]);
+                rules.startTrans = rdr["Start"].ToString();
+                rules.endTrans = rdr["End"].ToString();
+                rules.catTrans = Convert.ToBoolean(rdr["CatChk"]);
+                rules.catTxt = rdr["Category"].ToString();
+                rules.greatTrans = Convert.ToBoolean(rdr["GTranChk"]);
+                rules.greatTransAmt = Convert.ToInt32(rdr["GTranAmt"]);
+                rules.greatDepo = Convert.ToBoolean(rdr["GDepoChk"]);
+                rules.greatDepoAmt = Convert.ToDouble(rdr["GDepoAmt"]);
+                rules.greatWithdraw = Convert.ToBoolean(rdr["GWithChk"]);
+                rules.greatWithdrawAmt = Convert.ToDouble(rdr["GWithAmt"]);
+                rules.greatBal = Convert.ToBoolean(rdr["GBalChk"]);
+                rules.greatBalAmt = Convert.ToDouble(rdr["GBalAmt"]);
+                rules.lessBal = Convert.ToBoolean(rdr["LBalChk"]);
+                rules.lessBalAmt = Convert.ToDouble(rdr["LBalAmt"]);
             }
             conn.Close();
+
             return rules;
         }
 
         public void setRules(Int32 customerID, Rules rules)
         {
-            string sqlStatement;
-            if (rules.RuleID > 0)
-            {
-                sqlStatement = "UPDATE rules SET" +
-                "`Customer_ID` = " + customerID +
-                ",`Account_ID` = " + rules.accountID +
-                ",`OutStateTrans` = " + rules.OutStateTrans +
-                ",`RangeTrans` = " + rules.rangeTrans +
-                ",`StartTrans` = '" + rules.startTrans +
-                "',`EndTrans` = '" + rules.endTrans +
-                "',`CatTrans` = " + rules.catTrans +
-                ",`Catagory` = '" + rules.catTxt +
-                "',`GreatTrans` = " + rules.greatTrans +
-                ",`GreatTransAmt` = " + rules.greatTransAmt +
-                ",`GreatDepo` = " + rules.greatDepo +
-                ",`GreatDepoAmt` = " + rules.greatDepoAmt +
-                ",`GreatWithdraw` = " + rules.greatWithdraw +
-                ",`GreatWithdrawAmt` = " + rules.greatWithdrawAmt +
-                ",`GreatBal` = " + rules.greatBal +
-                ",`GreatBalAmt` = " + rules.greatBalAmt +
-                ",`LessBal` = " + rules.lessBal +
-                ",`LessBalAmt` = " + rules.lessBalAmt +
-                " WHERE `Rule_ID` = " + rules.RuleID + ";";
-            }
-            else
-            {
-                sqlStatement = "INSERT INTO Rules VALUES (0," +
-                customerID + "," + rules.accountID + "," + rules.OutStateTrans + "," +
-                rules.rangeTrans + ",'" + rules.startTrans + "','" +
-                rules.endTrans + "'," + rules.catTrans + ",'" +
-                rules.catTxt + "'," + rules.greatTrans + "," +
-                rules.greatTransAmt + "," + rules.greatDepo + "," +
-                rules.greatDepoAmt + "," + rules.greatWithdraw + "," +
-                rules.greatWithdrawAmt + "," + rules.greatBal + "," +
-                rules.greatBalAmt + "," + rules.lessBal + "," +
-                rules.lessBalAmt + ")";
-            }
-            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("setRules", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@OutStateChk", rules.OutStateTrans);
+            cmd.Parameters.AddWithValue("@RangeChk", rules.rangeTrans);
+            cmd.Parameters.AddWithValue("@Start", rules.startTrans);
+            cmd.Parameters.AddWithValue("@End", rules.endTrans);
+            cmd.Parameters.AddWithValue("@CatChk", rules.catTrans);
+            cmd.Parameters.AddWithValue("@Category", rules.catTxt);
+            cmd.Parameters.AddWithValue("@GTranChk", rules.greatTrans);
+            cmd.Parameters.AddWithValue("@GTranAmt", rules.greatTransAmt);
+            cmd.Parameters.AddWithValue("@GDepoChk", rules.greatDepo);
+            cmd.Parameters.AddWithValue("@GDepoAmt", rules.greatDepoAmt);
+            cmd.Parameters.AddWithValue("@GWithChk", rules.greatWithdraw);
+            cmd.Parameters.AddWithValue("@GWithAmt", rules.greatWithdrawAmt);
+            cmd.Parameters.AddWithValue("@GBalChk", rules.greatBal);
+            cmd.Parameters.AddWithValue("@GBalAmt", rules.greatBalAmt);
+            cmd.Parameters.AddWithValue("@LBalChk", rules.lessBal);
+            cmd.Parameters.AddWithValue("@LBalAmt", rules.lessBalAmt);
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@accountID", rules.accountID);
             cmd.ExecuteNonQuery();
             conn.Close();
         }
 
         public void deleteRules(Int32 customerID, Int32 accountID)
         {
-            string sqlStatement = "DELETE FROM Rules WHERE Customer_ID=" + customerID + " AND Account_ID=" + accountID;
-            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("deleteRules", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@accountID", accountID);
             cmd.ExecuteNonQuery();
             conn.Close();
         }
@@ -221,33 +231,39 @@ namespace asp_core_mvc.Models
         public Boolean validateUser(LoginModel login)
         {
             Boolean validUser = false;
-            String sqlQuery = "SELECT * FROM Customers WHERE CustUserName='" + login.UserName + "' AND CustPassword='" + login.Password + "';";
-            MySqlCommand cmd = new MySqlCommand(sqlQuery, conn);
+
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("validateUser", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@username", login.UserName);
+            cmd.Parameters.AddWithValue("@password", login.Password);
             MySqlDataReader rdr = cmd.ExecuteReader();
-            if (rdr.Read())
+            while (rdr.Read())
             {
                 validUser = true;
-                login.CustomerID = Convert.ToInt32(rdr["Customer_ID"]);
-                login.FullName = rdr["CustFirst_Name"].ToString() + " " + rdr["CustLast_Name"].ToString();
+                login.CustomerID = Convert.ToInt32(rdr["ID"]);
+                login.FullName = rdr["FirstName"].ToString() + " " + rdr["LastName"].ToString();
             }
             conn.Close();
 
             return validUser;
         }
 
-        public List<Int32> getAccounts(Int32 CustomerID)
+        public List<Int32> getAccounts(Int32 customerID)
         {
             List<Int32> accountID = new List<Int32>();
-            string sqlStatement = "SELECT Account_ID FROM Customer_Accounts WHERE Customer_ID=" + CustomerID;
-            MySqlCommand cmd = new MySqlCommand(sqlStatement, conn);
+
             conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getAccounts", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@customerID", customerID);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
-                accountID.Add(Convert.ToInt32(rdr["Account_ID"]));
+                accountID.Add(Convert.ToInt32(rdr["AccountID"]));
             }
-            conn.Close();
+            conn.Close(); 
+
             return accountID;
         }
     }

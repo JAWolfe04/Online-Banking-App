@@ -11,7 +11,7 @@ namespace asp_core_mvc.Controllers
         public IActionResult Index()
         {
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            return View(databaseHandler.getTransactions());
+            return View(databaseHandler.getTransactions(12341001));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
