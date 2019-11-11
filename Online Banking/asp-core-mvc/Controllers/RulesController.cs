@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using asp_core_mvc.Models;
 using asp_core_mvc.ViewModels;
@@ -12,7 +10,7 @@ namespace asp_core_mvc.Controllers
 {
     public class RulesController : Controller
     {
-        public IActionResult Index()
+        private RulesModel GenerateRulesModel(int account = 0)
         {
             RulesModel rulesModel = new RulesModel();
             DatabaseHandler databaseHandler = new DatabaseHandler();
@@ -21,22 +19,29 @@ namespace asp_core_mvc.Controllers
             rulesModel.accounts = accountIDs;
             if (accountIDs.Count > 0)
             {
-                rulesModel.rules = databaseHandler.getRules(customerID, accountIDs[0]);
-                rulesModel.curAccount = accountIDs[0];
+                if(account > 0)
+                {
+                    rulesModel.curAccount = account;
+                    rulesModel.rules = databaseHandler.getRules(customerID, account);
+                }
+                else
+                {
+                    rulesModel.curAccount = accountIDs[0];
+                    rulesModel.rules = databaseHandler.getRules(customerID, accountIDs[0]);
+                }
             }
-            return View(rulesModel);
+            return rulesModel;
+        }
+
+        public IActionResult Index()
+        {
+            return View(GenerateRulesModel());
         }
 
         [HttpPost]
         public IActionResult Index(RulesModel ruleModel)
         {
-            RulesModel rulesModel = new RulesModel();
-            DatabaseHandler databaseHandler = new DatabaseHandler();
-            Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
-            List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
-            rulesModel.accounts = accountIDs;
-            rulesModel.rules = databaseHandler.getRules(customerID, ruleModel.curAccount);
-            return View(rulesModel);
+            return View(GenerateRulesModel(ruleModel.curAccount));
         }
 
         [HttpPost]

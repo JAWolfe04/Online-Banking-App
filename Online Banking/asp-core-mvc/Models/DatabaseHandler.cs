@@ -266,5 +266,24 @@ namespace asp_core_mvc.Models
 
             return accountID;
         }
+
+        public Account getAccount(Int32 accountID)
+        {
+            Account account = new Account();
+
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getAccount", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@accountID", accountID);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                account.AccountType = rdr["Type"].ToString();
+                account.Balance = Convert.ToDouble(rdr["Balance"]);
+            }
+            conn.Close();
+
+            return account;
+        }
     }
 }

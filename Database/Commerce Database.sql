@@ -255,6 +255,8 @@ INSERT INTO alert VALUES (4,'2019-07-30','Flagged catagory',0,12341001,1,74);
 
 INSERT INTO report VALUES (0,0,4,0,0,0,0,0,1,12341001);
 
+INSERT INTO archivedreport VALUES (1, '2019-05-02', '2019-07-30', 0, 0, 4, 0, 0, 0, 0, 0, 12341001, 1);
+
 -------------------------------------------------------------------------------------------------------
 -- Add Stored Procedures
 -------------------------------------------------------------------------------------------------------
@@ -298,6 +300,12 @@ CREATE PROCEDURE getAccounts(IN customerID INT)
 BEGIN
 	SELECT AccountID FROM customeraccount
     WHERE customeraccount.CustomerID = customerID;
+END;
+
+CREATE PROCEDURE getAccount(IN accountID INT)
+BEGIN
+	SELECT Type, Balance FROM account
+    WHERE account.ID = accountID;
 END;
 
 CREATE PROCEDURE getAlerts(IN customerID INT, IN accountID INT)

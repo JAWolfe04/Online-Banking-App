@@ -12,18 +12,45 @@ namespace asp_core_mvc.Controllers
 {
     public class ReportsController : Controller
     {
-        public IActionResult Index()
+        private ReportsModel generateReportsModel(int account = 0)
         {
+            ReportsModel reportsModel = new ReportsModel();
             DatabaseHandler databaseHandler = new DatabaseHandler();
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
-            ReportsModel reportsModel = new ReportsModel();
-            reportsModel.Reports = databaseHandler.getReports(customerID, 12341001);
-            reportsModel.PrevReports = databaseHandler.getPrevReports(customerID, 12341001);
-            return View(reportsModel);
+            List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
+            reportsModel.accounts = accountIDs;
+            if (accountIDs.Count > 0)
+            {
+                if (account > 0)
+                {
+                    reportsModel.curAccount = account;
+                    reportsModel.Reports = databaseHandler.getReports(customerID, account);
+                    reportsModel.PrevReports = databaseHandler.getPrevReports(customerID, account);
+                }
+                else
+                {
+                    reportsModel.curAccount = account;
+                    reportsModel.Reports = databaseHandler.getReports(customerID, accountIDs[0]);
+                    reportsModel.PrevReports = databaseHandler.getPrevReports(customerID, accountIDs[0]);
+                }
+            }
+
+            return reportsModel;
+        }
+
+        public IActionResult Index()
+        {
+            return View(generateReportsModel());
+        }
+
+        [HttpPost]
+        public IActionResult Index(ReportsModel reportsModel)
+        {
+            return View(generateReportsModel(reportsModel.curAccount));
         }
 
         [HttpGet]
-        public IActionResult Export(String sd, String ed) // EPPlus [params = startdate, enddate]
+        public IActionResult Export(String sd, String ed, int accountID) // EPPlus [params = startdate, enddate]
         {
             byte[] result;
 
@@ -45,12 +72,12 @@ namespace asp_core_mvc.Controllers
 
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             DatabaseHandler databaseHandler = new DatabaseHandler();
-            List<Reports> reps = databaseHandler.getPrevReports(customerID, 12341000);
+            List<Reports> reps = databaseHandler.getPrevReports(customerID, accountID);
             ws.Cells["B3"].Value = sd; // Start Date
             ws.Cells["B4"].Value = ed; // End Date
             ws.Cells["B5"].Value = reps.Find(x => x.StartDate.Contains(sd) && x.EndDate.Contains(ed)).AlertsInTimePeriod; // Alerts Tripped
 
-            List<Alerts> alrts = databaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), 12341000);
+            List<Alerts> alrts = databaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), accountID);
 
             int startRow = 8;
             string monthDate = sd.Substring(0, 2);

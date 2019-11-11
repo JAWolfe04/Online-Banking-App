@@ -8,6 +8,18 @@
     <p class="lead">This is an online banking web application using ASP.NET Core MVC.</p>
 </div>
 
+<div class="container">
+    <form asp-action="Index">
+        <div class="row col-sm-3 mb-3">
+            <select class="form-control" asp-for=@Model.curAccount onchange="this.form.submit()">
+                @foreach (Int32 accountID in Model.accounts)
+                {
+                    <option value=@accountID>Account #@accountID</option>
+                }
+            </select>
+        </div>
+    </form>
+</div>
 <div class="row">
     <div class="col-md-4">
         <h2>System Messages</h2>
@@ -16,7 +28,7 @@
     <div class="col-md-4">
         <h2>Account Balance</h2>
         <p>Information about Current Account Balance Here:</p>
-        <h2>$@Model.Transactions.First().Balance</h2>
+        <h2>$@Model.Balance</h2>
     </div>
     <div class="col-md-4">
         <h2>Recent Alerts</h2>  <!-- Recent 5 Alerts -->
