@@ -5,7 +5,6 @@ using asp_core_mvc.ViewModels;
 using System;
 using OfficeOpenXml;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 using Microsoft.AspNetCore.Http;
 
 namespace asp_core_mvc.Controllers
@@ -15,23 +14,22 @@ namespace asp_core_mvc.Controllers
         private ReportsModel generateReportsModel(int account = 0)
         {
             ReportsModel reportsModel = new ReportsModel();
-            DatabaseHandler databaseHandler = new DatabaseHandler();
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
-            List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
+            List<Int32> accountIDs = DatabaseHandler.getAccounts(customerID);
             reportsModel.accounts = accountIDs;
             if (accountIDs.Count > 0)
             {
                 if (account > 0)
                 {
                     reportsModel.curAccount = account;
-                    reportsModel.Reports = databaseHandler.getReports(customerID, account);
-                    reportsModel.PrevReports = databaseHandler.getPrevReports(customerID, account);
+                    reportsModel.Reports = DatabaseHandler.getReports(customerID, account);
+                    reportsModel.PrevReports = DatabaseHandler.getPrevReports(customerID, account);
                 }
                 else
                 {
                     reportsModel.curAccount = account;
-                    reportsModel.Reports = databaseHandler.getReports(customerID, accountIDs[0]);
-                    reportsModel.PrevReports = databaseHandler.getPrevReports(customerID, accountIDs[0]);
+                    reportsModel.Reports = DatabaseHandler.getReports(customerID, accountIDs[0]);
+                    reportsModel.PrevReports = DatabaseHandler.getPrevReports(customerID, accountIDs[0]);
                 }
             }
 
@@ -40,12 +38,18 @@ namespace asp_core_mvc.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
             return View(generateReportsModel());
         }
 
         [HttpPost]
         public IActionResult Index(ReportsModel reportsModel)
         {
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
             return View(generateReportsModel(reportsModel.curAccount));
         }
 
@@ -71,13 +75,12 @@ namespace asp_core_mvc.Controllers
             //ws.Cells["G7"].Value = "TransID";
 
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
-            DatabaseHandler databaseHandler = new DatabaseHandler();
-            List<Reports> reps = databaseHandler.getPrevReports(customerID, accountID);
+            List<Reports> reps = DatabaseHandler.getPrevReports(customerID, accountID);
             ws.Cells["B3"].Value = sd; // Start Date
             ws.Cells["B4"].Value = ed; // End Date
             ws.Cells["B5"].Value = reps.Find(x => x.StartDate.Contains(sd) && x.EndDate.Contains(ed)).AlertsInTimePeriod; // Alerts Tripped
 
-            List<Alerts> alrts = databaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), accountID);
+            List<Alerts> alrts = DatabaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), accountID);
 
             int startRow = 8;
             string monthDate = sd.Substring(0, 2);

@@ -13,33 +13,38 @@ namespace asp_core_mvc.Controllers
         private TransactionsModel GenerateTransactionsModel(int account = 0)
         {
             TransactionsModel transModel = new TransactionsModel();
-            DatabaseHandler databaseHandler = new DatabaseHandler();
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
-            List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
+            List<Int32> accountIDs = DatabaseHandler.getAccounts(customerID);
             transModel.accounts = accountIDs;
             if (accountIDs.Count > 0)
             {
                 if (account > 0)
                 {
                     transModel.curAccount = account;
-                    transModel.transactions = databaseHandler.getTransactions(account);
+                    transModel.transactions = DatabaseHandler.getTransactions(account);
                 }
                 else
                 {
                     transModel.curAccount = accountIDs[0];
-                    transModel.transactions = databaseHandler.getTransactions(accountIDs[0]);
+                    transModel.transactions = DatabaseHandler.getTransactions(accountIDs[0]);
                 }
             }
             return transModel;
         }
-            public IActionResult Index()
+        public IActionResult Index()
         {
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
             return View(GenerateTransactionsModel());
         }
 
         [HttpPost]
         public IActionResult Index(TransactionsModel transModel)
         {
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
             return View(GenerateTransactionsModel(transModel.curAccount));
         }
 

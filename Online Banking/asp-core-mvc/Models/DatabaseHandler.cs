@@ -1,42 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using MySql.Data.Types;
 using MySql.Data.MySqlClient;
 
 namespace asp_core_mvc.Models
 {
-    public class DatabaseHandler
+    public static class DatabaseHandler
     {
-        private MySqlConnection conn;
+        private static MySqlConnection conn;
 
-        public DatabaseHandler()
+        public static void SetupConnection(IConfiguration config)
         {
-            string localconn = "server=localhost;" +
-                             "user=root;" +
-                             "database=cs451_project;" +
-                             "port=3306;" +
-                             "password=123456";
-
-            string UMKCconn = "server=KC-ISIA-MySQL1D;" +
-                             "user=CS451R_FS19G6usr;" +
-                             "database=cs451r_fs2019_group6;" +
-                             "port=3306;" +
-                             "password=TNmDS9KuTrJu7bl";
-
-            // Change to the DB connection you need
-            conn = new MySqlConnection(localconn);
-            // conn = new MySqlConnection(localconn);
+            conn = new MySqlConnection(config["LocalConn:ConnectionString"]);
         }
 
-        public MySqlConnection getConn()
-        {
-            return conn;
-        }
-
-        public List<Alerts> getAlerts(Int32 customerID, Int32 accountID)
+        public static List<Alerts> getAlerts(Int32 customerID, Int32 accountID)
         {
             List<Alerts> alerts = new List<Alerts>();
 
@@ -69,7 +48,7 @@ namespace asp_core_mvc.Models
             return alerts;
         }
 
-        public List<Transactions> getTransactions(Int32 accountID)
+        public static List<Transactions> getTransactions(Int32 accountID)
         {
             List<Transactions> transactions = new List<Transactions>();
 
@@ -98,7 +77,7 @@ namespace asp_core_mvc.Models
             return transactions;
         }
 
-        public List<Reports> getReports(Int32 customerID, Int32 accountID)
+        public static List<Reports> getReports(Int32 customerID, Int32 accountID)
         {
             List<Reports> reports = new List<Reports>();
 
@@ -132,7 +111,7 @@ namespace asp_core_mvc.Models
             return reports;
         }
 
-        public List<Reports> getPrevReports(Int32 customerID, Int32 accountID)
+        public static List<Reports> getPrevReports(Int32 customerID, Int32 accountID)
         {
             List<Reports> prevReports = new List<Reports>();
 
@@ -155,7 +134,7 @@ namespace asp_core_mvc.Models
             return prevReports;
         }
 
-        public Rules getRules(Int32 customerID, Int32 accountID)
+        public static Rules getRules(Int32 customerID, Int32 accountID)
         {
             Rules rules = new Rules();
             rules.accountID = accountID;
@@ -190,7 +169,7 @@ namespace asp_core_mvc.Models
             return rules;
         }
 
-        public void setRules(Int32 customerID, Rules rules)
+        public static void setRules(Int32 customerID, Rules rules)
         {
             conn.Open();
             MySqlCommand cmd = new MySqlCommand("setRules", conn);
@@ -217,7 +196,7 @@ namespace asp_core_mvc.Models
             conn.Close();
         }
 
-        public void deleteRules(Int32 customerID, Int32 accountID)
+        public static void deleteRules(Int32 customerID, Int32 accountID)
         {
             conn.Open();
             MySqlCommand cmd = new MySqlCommand("deleteRules", conn);
@@ -228,7 +207,7 @@ namespace asp_core_mvc.Models
             conn.Close();
         }
 
-        public Boolean validateUser(LoginModel login)
+        public static Boolean validateUser(LoginModel login)
         {
             Boolean validUser = false;
 
@@ -249,7 +228,7 @@ namespace asp_core_mvc.Models
             return validUser;
         }
 
-        public List<Int32> getAccounts(Int32 customerID)
+        public static List<Int32> getAccounts(Int32 customerID)
         {
             List<Int32> accountID = new List<Int32>();
 
@@ -267,7 +246,7 @@ namespace asp_core_mvc.Models
             return accountID;
         }
 
-        public Account getAccount(Int32 accountID)
+        public static Account getAccount(Int32 accountID)
         {
             Account account = new Account();
 

@@ -13,21 +13,20 @@ namespace asp_core_mvc.Controllers
         private RulesModel GenerateRulesModel(int account = 0)
         {
             RulesModel rulesModel = new RulesModel();
-            DatabaseHandler databaseHandler = new DatabaseHandler();
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
-            List<Int32> accountIDs = databaseHandler.getAccounts(customerID);
+            List<Int32> accountIDs = DatabaseHandler.getAccounts(customerID);
             rulesModel.accounts = accountIDs;
             if (accountIDs.Count > 0)
             {
                 if(account > 0)
                 {
                     rulesModel.curAccount = account;
-                    rulesModel.rules = databaseHandler.getRules(customerID, account);
+                    rulesModel.rules = DatabaseHandler.getRules(customerID, account);
                 }
                 else
                 {
                     rulesModel.curAccount = accountIDs[0];
-                    rulesModel.rules = databaseHandler.getRules(customerID, accountIDs[0]);
+                    rulesModel.rules = DatabaseHandler.getRules(customerID, accountIDs[0]);
                 }
             }
             return rulesModel;
@@ -35,27 +34,32 @@ namespace asp_core_mvc.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
             return View(GenerateRulesModel());
         }
 
         [HttpPost]
         public IActionResult Index(RulesModel ruleModel)
         {
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
             return View(GenerateRulesModel(ruleModel.curAccount));
         }
 
         [HttpPost]
         public IActionResult Edit(RulesModel ruleModel)
         {
-            DatabaseHandler databaseHandler = new DatabaseHandler();
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             if (ruleModel.rules.OutStateTrans == false && ruleModel.rules.rangeTrans == false &&
                 ruleModel.rules.catTrans == false && ruleModel.rules.greatTrans == false &&
                 ruleModel.rules.greatDepo == false && ruleModel.rules.greatWithdraw == false &&
                 ruleModel.rules.greatBal == false && ruleModel.rules.lessBal == false)
-                databaseHandler.deleteRules(customerID, ruleModel.rules.accountID);
+                DatabaseHandler.deleteRules(customerID, ruleModel.rules.accountID);
             else
-                databaseHandler.setRules(customerID, ruleModel.rules);
+                DatabaseHandler.setRules(customerID, ruleModel.rules);
 
             return RedirectToAction("Index");
         }

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using asp_core_mvc.Models;
 
 namespace asp_core_mvc
 {
@@ -17,6 +14,7 @@ namespace asp_core_mvc
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DatabaseHandler.SetupConnection(configuration);
         }
 
         public IConfiguration Configuration { get; }
@@ -39,7 +37,7 @@ namespace asp_core_mvc
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromSeconds(120);
+                options.IdleTimeout = TimeSpan.FromSeconds(300);
                 options.Cookie.HttpOnly = true;
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
