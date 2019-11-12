@@ -15,6 +15,15 @@ DROP TABLE IF EXISTS states;
 DROP PROCEDURE IF EXISTS transAlert;
 DROP TRIGGER IF EXISTS transactions_AFTER_INSERT;
 
+DROP TABLE IF EXISTS alert;
+DROP TABLE IF EXISTS archivedreport;
+DROP TABLE IF EXISTS customeraccount;
+DROP TABLE IF EXISTS report;
+DROP TABLE IF EXISTS rule;
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS `transaction`;
+DROP TABLE IF EXISTS `account`;
+
 
 CREATE TABLE `account` (
   ID INT NOT NULL AUTO_INCREMENT,
@@ -248,10 +257,10 @@ INSERT INTO transaction VALUES (73,'2019-07-30','DR',46.00,'Cheesecake Factory',
 INSERT INTO transaction VALUES (74,'2019-07-30','DR',8.00,'Starbucks','MO',4573.00,12341001);
 INSERT INTO transaction VALUES (75,'2019-10-13','DR',571.08,'Gym','NY',4002.00,12341001);
 
-INSERT INTO alert VALUES (1,'2019-05-02','Flagged catagory',0,12341001,1,2);
-INSERT INTO alert VALUES (2,'2019-05-19','Flagged catagory',0,12341001,1,11);
-INSERT INTO alert VALUES (3,'2019-07-10','Flagged catagory',0,12341001,1,44);
-INSERT INTO alert VALUES (4,'2019-07-30','Flagged catagory',0,12341001,1,74);
+INSERT INTO alert VALUES (1,'2019-05-02','Flagged category',0,12341001,1,2);
+INSERT INTO alert VALUES (2,'2019-05-19','Flagged category',0,12341001,1,11);
+INSERT INTO alert VALUES (3,'2019-07-10','Flagged category',0,12341001,1,44);
+INSERT INTO alert VALUES (4,'2019-07-30','Flagged category',0,12341001,1,74);
 
 INSERT INTO report VALUES (0,0,4,0,0,0,0,0,1,12341001);
 
@@ -422,7 +431,7 @@ BEGIN
                 
 		ELSEIF (@CatChk AND @Cat = tCat) THEN
 			INSERT INTO Alert(Date, TransactionID, AccountID, CustomerID, Reason) 
-				VALUES (tdate, transID, accountID, Customer, 'Flagged catagory');
+				VALUES (tdate, transID, accountID, Customer, 'Flagged category');
 			CALL generateReport(0, 0, 1, 0, 0, 0, 0, 0, Customer, accountID);
                 
 		ELSEIF (@GrtTrnChk AND tAmt > @GrtTrnAmt) THEN
