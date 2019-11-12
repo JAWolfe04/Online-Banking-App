@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using asp_core_mvc.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -18,8 +14,7 @@ namespace asp_core_mvc.Controllers
         [HttpPost]
         public IActionResult Login(LoginModel login)
         {
-            DatabaseHandler databaseHandler = new DatabaseHandler();
-            if (databaseHandler.validateUser(login))
+            if (DatabaseHandler.validateUser(login))
             {
                 HttpContext.Session.SetString("Name", login.FullName);
                 HttpContext.Session.SetInt32("CustomerID", login.CustomerID);

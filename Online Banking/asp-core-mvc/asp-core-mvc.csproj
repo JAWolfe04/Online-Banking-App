@@ -5,6 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>asp_core_mvc</RootNamespace>
     <AssemblyName>asp-core-mvc</AssemblyName>
+    <UserSecretsId>c76ff39d-7099-42eb-a7e6-5760e05a2570</UserSecretsId>
   </PropertyGroup>
 
 
