@@ -26,3 +26,10 @@
 [Project Plan](https://drive.google.com/file/d/1uFflc3Nxn3kO5gckeC0MrsP_tgIqi7AX/view)
 
 [Architecture Document](https://drive.google.com/file/d/1GkOJ_-omDaYag-p-Z-son-h3iK5hVcDw/view?usp=sharing)
+
+[Test Plan](https://drive.google.com/file/d/1SVcRI6LczRg_jF0-mU4kh52v7ViA4-A8/view?usp=sharing)
+
+[Test Specifications](https://drive.google.com/file/d/1YSL1BsYmaOzfYBZlw8t3bEqo5Jzaiuap/view?usp=sharing)
+
+[Test Reports](https://drive.google.com/file/d/1XmQujSJrYXVmGS4-pVgxk3h_dJ0Rbsqi/view?usp=sharing)
+
