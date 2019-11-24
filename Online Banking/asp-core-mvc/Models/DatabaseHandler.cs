@@ -188,11 +188,11 @@ namespace asp_core_mvc.Models
 
                 DateTime temp;
                 if(rdr["Start"] != null)
-                    rules.startTrans = (DateTime)rdr["Start"];
+                    rules.startTrans = Convert.ToDateTime(rdr["Start"]);
                 else
                     rules.startTrans = DateTime.Today;
                 if(rdr["End"] != null)
-                    rules.endTrans = (DateTime)rdr["End"];
+                    rules.endTrans = Convert.ToDateTime(rdr["End"]);
                 else
                     rules.endTrans = DateTime.Today;
 
