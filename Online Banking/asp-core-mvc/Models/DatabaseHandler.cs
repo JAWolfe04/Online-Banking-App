@@ -65,7 +65,8 @@ namespace asp_core_mvc.Models
                 Alerts alert = new Alerts();
                 alert.AlertID = Convert.ToInt32(rdr["ID"]);
                 alert.TransId = Convert.ToInt32(rdr["TransactionID"]);
-                alert.TransDate = rdr["Date"].ToString();
+                //alert.TransDate = rdr["Date"].ToString();
+                alert.TransDate = Convert.ToDateTime(rdr["Date"]).ToString("MM/dd/yyyy");
                 alert.TransDesc = rdr["Description"].ToString();
                 if (rdr["Type"].ToString() == "CR") // Deposit
                     alert.TransType = "";
@@ -96,7 +97,8 @@ namespace asp_core_mvc.Models
             {
                 Transactions transaction = new Transactions();
                 transaction.TransId = Convert.ToInt32(rdr["ID"]);
-                transaction.TransDate = rdr["Date"].ToString();
+                //transaction.TransDate = rdr["Date"].ToString();
+                transaction.TransDate = Convert.ToDateTime(rdr["Date"]).ToString("MM/dd/yyyy");
                 transaction.TransDesc = rdr["Description"].ToString();
                 if (rdr["Type"].ToString() == "CR") // Deposit
                     transaction.TransType = "";
@@ -159,8 +161,8 @@ namespace asp_core_mvc.Models
             while (rdr.Read())
             {
                 Reports prevReport = new Reports();
-                prevReport.StartDate = rdr["Start"].ToString();
-                prevReport.EndDate = rdr["End"].ToString();
+                prevReport.StartDate = Convert.ToDateTime(rdr["Start"]).ToString("MM/dd/yyyy");
+                prevReport.EndDate = Convert.ToDateTime(rdr["End"]).ToString("MM/dd/yyyy");
                 prevReport.AlertsInTimePeriod = Convert.ToInt32(rdr["AlertsInTimePeriod"]);
                 prevReports.Add(prevReport);
             }

@@ -78,7 +78,12 @@ namespace asp_core_mvc.Controllers
             List<Reports> reps = DatabaseHandler.getPrevReports(customerID, accountID);
             ws.Cells["B3"].Value = sd; // Start Date
             ws.Cells["B4"].Value = ed; // End Date
-            ws.Cells["B5"].Value = reps.Find(x => x.StartDate.Contains(sd) && x.EndDate.Contains(ed)).AlertsInTimePeriod; // Alerts Tripped
+            foreach (Reports rep in reps)
+            {
+                if (rep.StartDate == sd && rep.EndDate == ed)
+                    ws.Cells["B5"].Value = rep.AlertsInTimePeriod;
+            }
+            //ws.Cells["B5"].Value = reps.Find(x => x.StartDate.Contains(sd) && x.EndDate.Contains(ed)).AlertsInTimePeriod; // Alerts Tripped
 
             List<Alerts> alrts = DatabaseHandler.exportAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), accountID);
 
