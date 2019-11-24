@@ -373,6 +373,11 @@ BEGIN
 		ORDER BY ID DESC;
 END;
 
+CREATE PROCEDURE removedAlert(IN AlertID INT)
+BEGIN
+	UPDATE Alert SET Removed = True WHERE ID = AlertID;
+END;
+
 CREATE PROCEDURE setRules(IN OutStateChk tinyint(1), IN RangeChk tinyint(1), IN Start date,
 	IN End date, IN CatChk tinyint(1), IN Category VARCHAR(45), IN GTranChk tinyint(1), 
     IN GTranAmt decimal(10,2), IN GDepoChk tinyint(1), IN GDepoAmt decimal(10,2), IN GWithChk tinyint(1), 
