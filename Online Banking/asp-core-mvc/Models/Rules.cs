@@ -15,11 +15,11 @@ namespace asp_core_mvc.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "Transaction between Start")]
-        public String startTrans { get; set; }
+        public DateTime startTrans { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "End")]
-        public String endTrans { get; set; }
+        public DateTime endTrans { get; set; }
 
         [Display(Name = "Enable transaction categories")]
         public bool catTrans { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace asp_core_mvc.Models
 {
@@ -184,8 +185,17 @@ namespace asp_core_mvc.Models
             {
                 rules.OutStateTrans = Convert.ToBoolean(rdr["OutStateChk"]);
                 rules.rangeTrans = Convert.ToBoolean(rdr["RangeChk"]);
-                rules.startTrans = rdr["Start"].ToString();
-                rules.endTrans = rdr["End"].ToString();
+
+                DateTime temp;
+                if(rdr["Start"] != null)
+                    rules.startTrans = (DateTime)rdr["Start"];
+                else
+                    rules.startTrans = DateTime.Today;
+                if(rdr["End"] != null)
+                    rules.endTrans = (DateTime)rdr["End"];
+                else
+                    rules.endTrans = DateTime.Today;
+
                 rules.catTrans = Convert.ToBoolean(rdr["CatChk"]);
                 rules.catTxt = rdr["Category"].ToString();
                 rules.greatTrans = Convert.ToBoolean(rdr["GTranChk"]);

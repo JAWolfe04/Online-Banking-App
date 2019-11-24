@@ -61,7 +61,9 @@ namespace asp_core_mvc.Controllers
             else
                 DatabaseHandler.setRules(customerID, ruleModel.rules);
 
-            return RedirectToAction("Index");
+            ViewBag.Success = true;
+
+            return View("Index", GenerateRulesModel());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

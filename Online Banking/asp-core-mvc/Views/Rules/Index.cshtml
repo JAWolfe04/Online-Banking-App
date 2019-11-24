@@ -6,6 +6,14 @@
 
 <h1>@ViewBag.Title</h1>
 
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Your changes have been saved.
+    </div>
+}
+
 <div class="container">
     <form asp-action="Index">
         <div class="row col-sm-3 mb-3">
