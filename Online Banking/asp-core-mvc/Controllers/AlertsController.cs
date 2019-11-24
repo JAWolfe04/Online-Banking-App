@@ -49,6 +49,16 @@ namespace asp_core_mvc.Controllers
             return View(generateAlertsModel(alertsModel.curAccount));
         }
 
+        public IActionResult Remove(int ID)
+        {
+            DatabaseHandler.removeAlert(ID);
+
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
+            return RedirectToAction("Index", "Alerts", generateAlertsModel());
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
