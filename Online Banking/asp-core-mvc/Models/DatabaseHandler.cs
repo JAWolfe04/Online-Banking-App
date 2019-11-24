@@ -66,7 +66,6 @@ namespace asp_core_mvc.Models
                 Alerts alert = new Alerts();
                 alert.AlertID = Convert.ToInt32(rdr["ID"]);
                 alert.TransId = Convert.ToInt32(rdr["TransactionID"]);
-                //alert.TransDate = rdr["Date"].ToString();
                 alert.TransDate = Convert.ToDateTime(rdr["Date"]).ToString("MM/dd/yyyy");
                 alert.TransDesc = rdr["Description"].ToString();
                 if (rdr["Type"].ToString() == "CR") // Deposit
@@ -98,7 +97,6 @@ namespace asp_core_mvc.Models
             {
                 Transactions transaction = new Transactions();
                 transaction.TransId = Convert.ToInt32(rdr["ID"]);
-                //transaction.TransDate = rdr["Date"].ToString();
                 transaction.TransDate = Convert.ToDateTime(rdr["Date"]).ToString("MM/dd/yyyy");
                 transaction.TransDesc = rdr["Description"].ToString();
                 if (rdr["Type"].ToString() == "CR") // Deposit
@@ -188,7 +186,6 @@ namespace asp_core_mvc.Models
                 rules.OutStateTrans = Convert.ToBoolean(rdr["OutStateChk"]);
                 rules.rangeTrans = Convert.ToBoolean(rdr["RangeChk"]);
 
-                DateTime temp;
                 if(rdr["Start"] != null)
                     rules.startTrans = Convert.ToDateTime(rdr["Start"]);
                 else

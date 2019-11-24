@@ -52,6 +52,9 @@ namespace asp_core_mvc.Controllers
         [HttpPost]
         public IActionResult Edit(RulesModel ruleModel)
         {
+            if (HttpContext.Session.Get("CustomerID") == null)
+                return RedirectToAction("Index", "Login");
+
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
             if (ruleModel.rules.OutStateTrans == false && ruleModel.rules.rangeTrans == false &&
                 ruleModel.rules.catTrans == false && ruleModel.rules.greatTrans == false &&
@@ -63,7 +66,7 @@ namespace asp_core_mvc.Controllers
 
             ViewBag.Success = true;
 
-            return View("Index", GenerateRulesModel());
+            return View("Index", GenerateRulesModel(ruleModel.rules.accountID));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
