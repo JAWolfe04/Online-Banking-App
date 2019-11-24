@@ -12,7 +12,7 @@
             <select class="form-control" asp-for=@Model.curAccount onchange="this.form.submit()">
                 @foreach (Int32 accountID in Model.accounts)
                 {
-                    <option value=@accountID>Account #@accountID</option>
+                <option value=@accountID>Account ######@accountID.ToString().Substring(6)</option>
                 }
             </select>
         </div>
