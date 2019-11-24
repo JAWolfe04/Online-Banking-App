@@ -80,7 +80,7 @@ namespace asp_core_mvc.Controllers
             ws.Cells["B4"].Value = ed; // End Date
             ws.Cells["B5"].Value = reps.Find(x => x.StartDate.Contains(sd) && x.EndDate.Contains(ed)).AlertsInTimePeriod; // Alerts Tripped
 
-            List<Alerts> alrts = DatabaseHandler.getAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), accountID);
+            List<Alerts> alrts = DatabaseHandler.exportAlerts((Int32)HttpContext.Session.GetInt32("CustomerID"), accountID);
 
             int startRow = 8;
             string monthDate = sd.Substring(0, 2);

@@ -39,6 +39,7 @@
                 <td>@alert.Location</td>
                 <td>@String.Format("{0}{1:0.00}", alert.TransType, alert.Amount)</td>
                 <td>@String.Format("{0:0.00}", alert.Balance)</td>
+                <td>@Html.ActionLink("Remove", "Remove", "Alerts", new { id = alert.AlertID })</td>
             </tr>
         }
     </tbody>
