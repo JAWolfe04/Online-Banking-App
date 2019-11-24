@@ -271,10 +271,13 @@ INSERT INTO alert VALUES (25,'2019-07-07','Out of state: NE',0,12341001,1,60);
 INSERT INTO report VALUES (1,2,2,0,0,1,0,0,6,1,12341000);
 INSERT INTO report VALUES (2,2,3,0,0,0,0,0,0,1,12341001);
 
-INSERT INTO archivedreport VALUES (1,'2019-05-01','2019-05-30',0,0,1,1,1,1,0,0,12341000,1);
-INSERT INTO archivedreport VALUES (2,'2019-05-01','2019-05-30',0,0,0,1,0,1,0,0,12341001,1);
-INSERT INTO archivedreport VALUES (3,'2019-05-31','2019-06-30',0,0,0,0,2,0,0,0,12341000,1);
-INSERT INTO archivedreport VALUES (4,'2019-05-31','2019-06-30',0,2,0,0,0,0,0,0,12341001,1);
+INSERT INTO archivedreport VALUES (1,'2019-05-01','2019-05-31',0,0,1,1,1,1,0,0,12341000,1);
+INSERT INTO archivedreport VALUES (2,'2019-05-01','2019-05-31',0,0,0,1,0,1,0,0,12341001,1);
+INSERT INTO archivedreport VALUES (3,'2019-06-01','2019-06-30',0,0,0,0,2,0,0,0,12341000,1);
+INSERT INTO archivedreport VALUES (4,'2019-06-01','2019-06-30',0,2,0,0,0,0,0,0,12341001,1);
+INSERT INTO archivedreport VALUES (5,'2019-07-01','2019-07-31',1,2,0,0,1,0,0,6,12341000,1);
+INSERT INTO archivedreport VALUES (6,'2019-07-01','2019-07-31',1,3,0,0,0,0,0,0,12341001,1);
+INSERT INTO archivedreport VALUES (7,'2019-10-01','2019-10-31',1,0,0,0,0,0,0,0,12341000,1);
 
 -------------------------------------------------------------------------------------------------------
 -- Add Stored Procedures
