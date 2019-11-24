@@ -31,7 +31,7 @@ namespace asp_core_mvc.Models
                 alert.AlertID = Convert.ToInt32(rdr["ID"]);
                 alert.TransId = Convert.ToInt32(rdr["TransactionID"]);
                 alert.TransDate = rdr["Date"].ToString();
-                alert.TransDesc = rdr["Desc"].ToString();
+                alert.TransDesc = rdr["Description"].ToString();
                 if (rdr["Type"].ToString() == "CR") // Deposit
                     alert.TransType = "";
                 else if (rdr["Type"].ToString() == "DR") // Withdrawal
@@ -62,7 +62,7 @@ namespace asp_core_mvc.Models
                 Transactions transaction = new Transactions();
                 transaction.TransId = Convert.ToInt32(rdr["ID"]);
                 transaction.TransDate = rdr["Date"].ToString();
-                transaction.TransDesc = rdr["Desc"].ToString();
+                transaction.TransDesc = rdr["Description"].ToString();
                 if (rdr["Type"].ToString() == "CR") // Deposit
                     transaction.TransType = "";
                 else if (rdr["Type"].ToString() == "DR") // Withdrawal
