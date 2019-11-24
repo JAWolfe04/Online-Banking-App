@@ -27,6 +27,41 @@ namespace asp_core_mvc.Models
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
+                if(!Convert.ToBoolean(rdr["Removed"]))
+                {
+                    Alerts alert = new Alerts();
+                    alert.AlertID = Convert.ToInt32(rdr["ID"]);
+                    alert.TransId = Convert.ToInt32(rdr["TransactionID"]);
+                    alert.TransDate = rdr["Date"].ToString();
+                    alert.TransDesc = rdr["Description"].ToString();
+                    if (rdr["Type"].ToString() == "CR") // Deposit
+                        alert.TransType = "";
+                    else if (rdr["Type"].ToString() == "DR") // Withdrawal
+                        alert.TransType = "-";
+                    alert.Location = rdr["Location"].ToString();
+                    alert.Amount = Convert.ToDouble(rdr["Amount"]);
+                    alert.Balance = Convert.ToDouble(rdr["Balance"]);
+                    alert.Reason = rdr["Reason"].ToString();
+                    alerts.Add(alert);
+                }
+            }
+            conn.Close();
+
+            return alerts;
+        }
+
+        public static List<Alerts> exportAlerts(Int32 customerID, Int32 accountID)
+        {
+            List<Alerts> alerts = new List<Alerts>();
+
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("getAlerts", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@accountID", accountID);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
                 Alerts alert = new Alerts();
                 alert.AlertID = Convert.ToInt32(rdr["ID"]);
                 alert.TransId = Convert.ToInt32(rdr["TransactionID"]);
@@ -205,6 +240,16 @@ namespace asp_core_mvc.Models
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@customerID", customerID);
             cmd.Parameters.AddWithValue("@accountID", accountID);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static void removeAlert(int AlertID)
+        {
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("removedAlert", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AlertID", AlertID);
             cmd.ExecuteNonQuery();
             conn.Close();
         }
