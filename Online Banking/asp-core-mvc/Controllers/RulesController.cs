@@ -55,7 +55,30 @@ namespace asp_core_mvc.Controllers
             if (HttpContext.Session.Get("CustomerID") == null)
                 return RedirectToAction("Index", "Login");
 
+            if(ruleModel.rules.startTrans < new DateTime(1900, 1, 1) ||
+                ruleModel.rules.startTrans > new DateTime(9999, 12, 31))
+            {
+                ModelState.AddModelError("startTrans", "The field Start date must be between 1/1/1900 and 12/31/9999.");
+            }
+            if (ruleModel.rules.endTrans < new DateTime(1900, 1, 1) ||
+                ruleModel.rules.endTrans > new DateTime(9999, 12, 31))
+            {
+                ModelState.AddModelError("endTrans", "The field End date must be between 1/1/1900 and 12/31/9999.");
+            }
+
+            if(ruleModel.rules.startTrans > ruleModel.rules.endTrans)
+            {
+                ModelState.AddModelError("startTrans", "The Start date must be before End date.");
+            }
+
             Int32 customerID = (Int32)HttpContext.Session.GetInt32("CustomerID");
+            if (!ModelState.IsValid)
+            {
+                ruleModel.curAccount = ruleModel.rules.accountID;
+                ruleModel.accounts = DatabaseHandler.getAccounts(customerID);
+                return View("Index", ruleModel);
+            }
+
             if (ruleModel.rules.OutStateTrans == false && ruleModel.rules.rangeTrans == false &&
                 ruleModel.rules.catTrans == false && ruleModel.rules.greatTrans == false &&
                 ruleModel.rules.greatDepo == false && ruleModel.rules.greatWithdraw == false &&

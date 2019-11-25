@@ -173,6 +173,7 @@ namespace asp_core_mvc.Models
         public static Rules getRules(Int32 customerID, Int32 accountID)
         {
             Rules rules = new Rules();
+            Boolean foundStart = false, foundEnd = false;
             rules.accountID = accountID;
 
             conn.Open();
@@ -187,13 +188,15 @@ namespace asp_core_mvc.Models
                 rules.rangeTrans = Convert.ToBoolean(rdr["RangeChk"]);
 
                 if(rdr["Start"] != null)
+                {
                     rules.startTrans = Convert.ToDateTime(rdr["Start"]);
-                else
-                    rules.startTrans = DateTime.Today;
+                    foundStart = true;
+                }
                 if(rdr["End"] != null)
+                {
                     rules.endTrans = Convert.ToDateTime(rdr["End"]);
-                else
-                    rules.endTrans = DateTime.Today;
+                    foundEnd = true;
+                }
 
                 rules.catTrans = Convert.ToBoolean(rdr["CatChk"]);
                 rules.catTxt = rdr["Category"].ToString();
@@ -208,6 +211,11 @@ namespace asp_core_mvc.Models
                 rules.lessBal = Convert.ToBoolean(rdr["LBalChk"]);
                 rules.lessBalAmt = Convert.ToDouble(rdr["LBalAmt"]);
             }
+
+            if(!foundStart)
+                rules.startTrans = DateTime.Today;
+            if (!foundEnd)
+                rules.endTrans = DateTime.Today;
             conn.Close();
 
             return rules;

@@ -25,9 +25,11 @@
             </select>
         </div>
     </form>
-    <div class="container" style="border:1px solid #cecece;">
-        <form asp-action="Edit">
-            <input type="hidden" asp-for=@Model.rules.accountID>
+    <form asp-action="Edit">
+        @Html.ValidationSummary(false, "", 
+            new { @class = "text-danger" })
+        <input type="hidden" asp-for=@Model.rules.accountID>
+        <div class="container" style="border:1px solid #cecece;">
             <div class="row align-items-center" style="height: 40px;">
                 <div class="col-sm-10">
                     Send Alert if:
@@ -126,6 +128,6 @@
                     <input type="submit" value="Apply" class="btn btn-primary" />
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
