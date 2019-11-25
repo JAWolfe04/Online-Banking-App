@@ -6,6 +6,7 @@ using System;
 using OfficeOpenXml;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using System.Globalization;
 
 namespace asp_core_mvc.Controllers
 {
@@ -27,7 +28,7 @@ namespace asp_core_mvc.Controllers
                 }
                 else
                 {
-                    reportsModel.curAccount = account;
+                    reportsModel.curAccount = accountIDs[0];
                     reportsModel.Reports = DatabaseHandler.getReports(customerID, accountIDs[0]);
                     reportsModel.PrevReports = DatabaseHandler.getPrevReports(customerID, accountIDs[0]);
                 }
@@ -88,14 +89,12 @@ namespace asp_core_mvc.Controllers
             List<Alerts> alrts = DatabaseHandler.exportAlerts(customerID, accountID);
 
             int startRow = 8;
-            string monthDate = sd.Substring(0, 2);
-            string yearDate = sd.Substring(sd.Length - 3, 2);
+            DateTime startDate = DateTime.ParseExact(sd, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            DateTime endDate = DateTime.ParseExact(ed, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             foreach (Alerts alrt in alrts)
             {
-                // monthly case ___ (same month and year)
-                string alrtDate = alrt.TransDate;
-                if (alrtDate.Substring(0, 2) == monthDate && alrtDate.Substring(alrtDate.Length - 3, 2) == yearDate)
-                // monthly case ^^^ (same month and year) 
+                DateTime alrtDate = DateTime.ParseExact(alrt.TransDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                if (startDate <= alrtDate && alrtDate <= endDate)
                 {
                     ws.Cells["A" + startRow.ToString()].Value = alrt.TransDate; // Date
                     ws.Cells["B" + startRow.ToString()].Value = alrt.Reason; // Reason for Alert
