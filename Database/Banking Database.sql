@@ -249,6 +249,7 @@ INSERT INTO alert VALUES (4,'2019-05-19','Flagged as Starbucks',0,12341000,1,7);
 INSERT INTO alert VALUES (5,'2019-05-19','Withdraw more than 500.00',0,12341000,1,8);
 INSERT INTO alert VALUES (6,'2019-06-02','Deposit more than 750.00',0,12341000,1,10);
 INSERT INTO alert VALUES (7,'2019-06-30','Deposit more than 750.00',0,12341000,1,18);
+
 INSERT INTO alert VALUES (8,'2019-07-06','Out of state: NE',0,12341000,1,22);
 INSERT INTO alert VALUES (9,'2019-07-12','Between 7/10/2019 and 7/13/2019',0,12341000,1,24);
 INSERT INTO alert VALUES (10,'2019-07-12','Between 7/10/2019 and 7/13/2019',0,12341000,1,25);
@@ -259,7 +260,7 @@ INSERT INTO alert VALUES (14,'2019-07-23','Balance less than 4000.00',0,12341000
 INSERT INTO alert VALUES (15,'2019-07-23','Balance less than 4000.00',0,12341000,1,35);
 INSERT INTO alert VALUES (16,'2019-07-27','Balance less than 4000.00',0,12341000,1,36);
 INSERT INTO alert VALUES (17,'2019-07-27','Deposit more than 750.00',0,12341000,1,37);
-INSERT INTO alert VALUES (18,'2019-10-13','Out of state: NY',0,12341000,1,39);
+
 INSERT INTO alert VALUES (19,'2019-05-15','Withdraw more than 250.00',0,12341001,1,44);
 INSERT INTO alert VALUES (20,'2019-06-26','Between 6/25/2019 and 7/2/2019',0,12341001,1,54);
 INSERT INTO alert VALUES (21,'2019-06-26','Between 6/25/2019 and 7/2/2019',0,12341001,1,55);
@@ -268,16 +269,13 @@ INSERT INTO alert VALUES (23,'2019-07-01','Between 6/25/2019 and 7/2/2019',0,123
 INSERT INTO alert VALUES (24,'2019-07-02','Between 6/25/2019 and 7/2/2019',0,12341001,1,58);
 INSERT INTO alert VALUES (25,'2019-07-07','Out of state: NE',0,12341001,1,60);
 
-INSERT INTO report VALUES (1,2,2,0,0,1,0,0,6,1,12341000);
-INSERT INTO report VALUES (2,2,3,0,0,0,0,0,0,1,12341001);
+INSERT INTO report VALUES (1,1,2,0,0,1,0,0,6,1,12341000);
+INSERT INTO report VALUES (2,1,3,0,0,0,0,0,0,1,12341001);
 
 INSERT INTO archivedreport VALUES (1,'2019-05-01','2019-05-31',0,0,1,1,1,1,0,0,12341000,1);
 INSERT INTO archivedreport VALUES (2,'2019-05-01','2019-05-31',0,0,0,1,0,1,0,0,12341001,1);
 INSERT INTO archivedreport VALUES (3,'2019-06-01','2019-06-30',0,0,0,0,2,0,0,0,12341000,1);
 INSERT INTO archivedreport VALUES (4,'2019-06-01','2019-06-30',0,2,0,0,0,0,0,0,12341001,1);
-INSERT INTO archivedreport VALUES (5,'2019-07-01','2019-07-31',1,2,0,0,1,0,0,6,12341000,1);
-INSERT INTO archivedreport VALUES (6,'2019-07-01','2019-07-31',1,3,0,0,0,0,0,0,12341001,1);
-INSERT INTO archivedreport VALUES (7,'2019-10-01','2019-10-31',1,0,0,0,0,0,0,0,12341000,1);
 
 -------------------------------------------------------------------------------------------------------
 -- Add Stored Procedures
